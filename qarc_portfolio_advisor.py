@@ -33,9 +33,17 @@ RISK_PROFILES: Dict[str, Dict[str, float]] = {
         "max_single_weight": 0.20,
         "max_equity_weight": 0.60,
     },
+    "CONSERVATIVE": {
+        "max_single_weight": 0.15,
+        "max_equity_weight": 0.50,
+    },
     "BALANCED_CORE": {
         "max_single_weight": 0.25,
         "max_equity_weight": 0.85,
+    },
+    "AGGRESSIVE_ALPHA": {
+        "max_single_weight": 0.30,
+        "max_equity_weight": 0.95,
     },
 }
 
@@ -417,6 +425,7 @@ def generate_institutional_portfolio(
             "shares": shares,
             "current_price": _round_price(price),
             "allocated_inr": allocated_inr,
+            "allocation_inr": allocated_inr,
             "target_weight_pct": round(target_w * 100.0, 2),
             "weight_pct": actual_weight_pct,
             "conviction_score": float(rec.get("conviction_score", 0.0)),
@@ -424,6 +433,12 @@ def generate_institutional_portfolio(
             "cvar_95_pct": float(rec.get("cvar_95_pct", -4.5)),
             "stop_loss_price": float(rec.get("stop_loss_price", price * 0.96)),
             "target_price": float(rec.get("target_price", price)),
+            "hmm_state": str(rec.get("hmm_state", "Accumulation")),
+            "garch_daily_vol_pct": float(rec.get("garch_daily_vol_pct", 1.5)),
+            "prob_up_pct": float(rec.get("prob_up_pct", 50.0)),
+            "has_factor_1": bool(rec.get("has_factor_1", False)),
+            "has_factor_2": bool(rec.get("has_factor_2", False)),
+            "rationale": str(rec.get("rationale", "")),
         })
 
     quarantined_tickers = [

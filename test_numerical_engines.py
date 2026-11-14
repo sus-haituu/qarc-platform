@@ -1215,6 +1215,189 @@ def test_live_news_api_and_rss_fallback_degradation():
             os.environ["NEWS_API_KEY"] = orig_news_key
 
 
+_MOCK_SCRIP_MASTER_RAW = [
+    {"token": "2885", "symbol": "RELIANCE-EQ", "name": "RELIANCE", "exch_seg": "NSE", "instrumenttype": ""},
+    {"token": "3787", "symbol": "WIPRO-EQ", "name": "WIPRO", "exch_seg": "NSE", "instrumenttype": ""},
+    {"token": "99001", "symbol": "ZOMATO-EQ", "name": "ZOMATO", "exch_seg": "NSE", "instrumenttype": ""},
+    {"token": "99002", "symbol": "IRCTC-EQ", "name": "IRCTC", "exch_seg": "NSE", "instrumenttype": ""},
+    {"token": "99003", "symbol": "IREDA-EQ", "name": "IREDA", "exch_seg": "NSE", "instrumenttype": ""},
+    # Must be filtered out: non -EQ series, BSE segment, NFO derivative
+    {"token": "99004", "symbol": "ZOMATO-BE", "name": "ZOMATO", "exch_seg": "NSE", "instrumenttype": ""},
+    {"token": "540376", "symbol": "DMART", "name": "AVENUE SUPERMARTS", "exch_seg": "BSE", "instrumenttype": ""},
+    {"token": "35001", "symbol": "ZOMATO26NOVFUT", "name": "ZOMATO", "exch_seg": "NFO", "instrumenttype": "FUTSTK"},
+]
+
+
+def _reset_scrip_master_cache(qac):
+    with qac._SCRIP_MASTER_LOCK:
+        qac._SCRIP_MASTER_CACHE.update({
+            "loaded_at": 0.0, "rows": [], "by_symbol": {}, "source": "EMPTY",
+            "last_failure_at": 0.0, "last_error": None,
+        })
+
+
+def test_dynamic_nse_token_resolution_scrip_master():
+    """
+    Test #28: Verifies Scrip Master NSE -EQ filtering, 24h disk cache reuse, static-map priority,
+    dynamic token resolution for unmapped symbols, and resolver use inside fetch_live_l2_depth_e09
+    + execute_trade_order(LIVE_ANGEL) (mocked SmartConnect).
+    """
+    import os
+    import tempfile
+    from unittest.mock import patch, MagicMock
+    import qarc_angel_client as qac
+
+    tmp_dir = tempfile.mkdtemp(prefix="qarc_scrip_")
+    cache_path = os.path.join(tmp_dir, "scrip_master.json")
+    orig_cache_env = os.environ.get("QARC_SCRIP_MASTER_CACHE")
+    try:
+        os.environ["QARC_SCRIP_MASTER_CACHE"] = cache_path
+        _reset_scrip_master_cache(qac)
+
+        with patch.object(qac, "_download_scrip_master", return_value=_MOCK_SCRIP_MASTER_RAW) as dl:
+            rows = qac.load_nse_scrip_master()
+            assert dl.call_count == 1
+            syms = sorted(r["symbol"] for r in rows)
+            assert syms == ["IRCTC", "IREDA", "RELIANCE", "WIPRO", "ZOMATO"], syms
+            assert os.path.exists(cache_path), "Scrip Master disk cache not written"
+
+            # In-memory hit: no second download
+            qac.load_nse_scrip_master()
+            assert dl.call_count == 1
+
+            # Disk hit after memory reset: still no download
+            _reset_scrip_master_cache(qac)
+            qac.load_nse_scrip_master()
+            assert dl.call_count == 1
+            assert qac._SCRIP_MASTER_CACHE["source"] == "DISK_CACHE"
+
+            # Static map wins; dynamic fallback resolves unmapped equities
+            assert qac._resolve_nse_token("reliance.ns") == ("RELIANCE", "2885", "RELIANCE-EQ")
+            assert qac._resolve_nse_token("ZOMATO") == ("ZOMATO", "99001", "ZOMATO-EQ")
+            assert qac._resolve_nse_token("IRCTC-EQ") == ("IRCTC", "99002", "IRCTC-EQ")
+            assert qac._resolve_nse_token("NOSUCHSTOCK") == ("NOSUCHSTOCK", None, None)
+
+            # Resolver wired into live L2 depth + LIVE_ANGEL execution
+            client = qac.QARCAngelOneClient()
+            client.smart_api = MagicMock()
+            client.auth_token = "mock-jwt"
+            client.last_auth_time = __import__("time").time()
+            client.smart_api.getMarketData.return_value = {
+                "status": True,
+                "data": {"fetched": [{
+                    "symbolToken": "99001", "tradingSymbol": "ZOMATO-EQ", "ltp": 250.5,
+                    "totBuyQuan": 1000, "totSellQuan": 800,
+                    "depth": {"buy": [{"price": 250.4, "quantity": 100}], "sell": [{"price": 250.6, "quantity": 90}]},
+                }]},
+            }
+            with patch.object(client, "_ensure_fresh_session", return_value=True):
+                l2 = client.fetch_live_l2_depth_e09("ZOMATO")
+                assert l2["available"] is True and l2["token"] == "99001", l2
+                client.smart_api.getMarketData.assert_called_with("FULL", {"NSE": ["99001"]})
+
+                client.smart_api.placeOrder.return_value = {"status": True, "data": {"orderid": "ORD-ZOM-1"}}
+                receipt = client.execute_trade_order("IREDA", side="BUY", quantity=1, price=180.0, mode="LIVE_ANGEL")
+                assert receipt["status"] == "LIVE_ORDER_SUBMITTED", receipt
+                sent = client.smart_api.placeOrder.call_args[0][0]
+                assert sent["symboltoken"] == "99003" and sent["tradingsymbol"] == "IREDA-EQ", sent
+
+                rejected = client.execute_trade_order("NOSUCHSTOCK", mode="LIVE_ANGEL")
+                assert rejected["status"] == "REJECTED", rejected
+    finally:
+        if orig_cache_env is None:
+            os.environ.pop("QARC_SCRIP_MASTER_CACHE", None)
+        else:
+            os.environ["QARC_SCRIP_MASTER_CACHE"] = orig_cache_env
+        _reset_scrip_master_cache(qac)
+
+
+def test_api_symbols_search_and_offline_fallback():
+    """
+    Test #29: Verifies GET /api/symbols ranking/limit against a mocked Scrip Master and
+    graceful fallback to NSE_SYMBOL_TOKEN_MAP when the Scrip Master download fails offline.
+    """
+    import os
+    import tempfile
+    from unittest.mock import patch
+    from fastapi.testclient import TestClient
+    import qarc_angel_client as qac
+    import main
+
+    tmp_dir = tempfile.mkdtemp(prefix="qarc_scrip_api_")
+    orig_cache_env = os.environ.get("QARC_SCRIP_MASTER_CACHE")
+    try:
+        os.environ["QARC_SCRIP_MASTER_CACHE"] = os.path.join(tmp_dir, "scrip_master.json")
+        _reset_scrip_master_cache(qac)
+        tc = TestClient(main.app)
+
+        with patch.object(qac, "_download_scrip_master", return_value=_MOCK_SCRIP_MASTER_RAW):
+            r = tc.get("/api/symbols", params={"q": "ir", "limit": 15})
+            assert r.status_code == 200, r.text
+            body = r.json()
+            assert [x["symbol"] for x in body["results"]] == ["IRCTC", "IREDA"], body
+            assert set(body["results"][0].keys()) == {"symbol", "name", "token"}
+            assert body["source"] == "NETWORK"
+
+            r_lim = tc.get("/api/symbols", params={"q": "", "limit": 2})
+            assert r_lim.json()["count"] == 2
+
+        # Offline: fresh process state + download failure -> static 46-symbol map
+        _reset_scrip_master_cache(qac)
+        os.environ["QARC_SCRIP_MASTER_CACHE"] = os.path.join(tmp_dir, "missing.json")
+        with patch.object(qac, "_download_scrip_master", side_effect=OSError("offline")):
+            r_off = tc.get("/api/symbols", params={"q": "TCS", "limit": 15})
+        assert r_off.status_code == 200
+        off = r_off.json()
+        assert off["source"] == "STATIC_TOKEN_MAP", off
+        assert off["results"][0] == {"symbol": "TCS", "name": "TCS", "token": "11536"}, off
+
+        # Full /api/bcp_analyze JSON response includes chart series (>=30 bars) and E14 forecast
+        r_bcp = tc.post("/api/bcp_analyze", json={"ticker": "WIPRO", "use_live_angel": False})
+        assert r_bcp.status_code == 200, f"Expected 200 for WIPRO, got {r_bcp.status_code}: {r_bcp.text}"
+        bcp_body = r_bcp.json()
+        assert bcp_body["ticker"] == "WIPRO"
+        assert isinstance(bcp_body.get("series"), list) and len(bcp_body["series"]) >= 30
+        assert isinstance(bcp_body.get("price_forecast"), dict) and "t5_expected_price" in bcp_body["price_forecast"]
+        assert "kalman_price_series" not in bcp_body.get("quant_anchors", {}).get("kalman", {})
+
+        # Uncached NSE symbol outside Bhavcopy ('ZOMATO') via mocked Angel One 60-bar history
+        dates = pd.bdate_range(end="2026-10-09", periods=60)
+        closes = np.linspace(230.0, 265.0, 60) + np.sin(np.arange(60) * 0.4) * 3.0
+        mock_hist = pd.DataFrame({
+            "ticker": "ZOMATO",
+            "date": dates,
+            "open": closes - 1.0,
+            "high": closes + 2.5,
+            "low": closes - 2.5,
+            "close": closes,
+            "volume": np.full(60, 1_500_000.0),
+        })
+
+        class MockAngel:
+            def fetch_historical_ohlcv(self, symbol, interval="ONE_DAY", days_back=400):
+                assert symbol == "ZOMATO"
+                return mock_hist.copy()
+
+            def append_live_candles_to_df(self, stock_df, symbol, days_back=45):
+                return stock_df
+
+            def fetch_live_l2_depth_e09(self, symbol):
+                return {"available": False, "symbol": symbol, "source": "MOCK"}
+
+        with patch.object(main, "_get_angel_client", return_value=MockAngel()):
+            z_res = main.analyze_bcp_endpoint("ZOMATO", use_live_angel=True)
+        assert z_res["ticker"] == "ZOMATO"
+        assert z_res["history_source"] == "ANGEL_ONE_LIVE_OHLCV"
+        assert isinstance(z_res.get("series"), list) and len(z_res["series"]) == 60
+        assert "t5_expected_price" in z_res.get("price_forecast", {})
+    finally:
+        if orig_cache_env is None:
+            os.environ.pop("QARC_SCRIP_MASTER_CACHE", None)
+        else:
+            os.environ["QARC_SCRIP_MASTER_CACHE"] = orig_cache_env
+        _reset_scrip_master_cache(qac)
+
+
 if __name__ == "__main__":
     import os
     from dotenv import load_dotenv
@@ -1254,6 +1437,8 @@ if __name__ == "__main__":
         ("Angel One JWT Auto-Refresh & AB1010 Retry", test_angel_jwt_auto_refresh_and_ab1010_retry, False),
         ("Runtime Colab LLM Handshake & <4s Fallback", test_runtime_llm_endpoint_handshake_and_fast_fallback, False),
         ("Live News API & RSS Fallback Degradation", test_live_news_api_and_rss_fallback_degradation, False),
+        ("Dynamic NSE Token Resolution (Scrip Master)", test_dynamic_nse_token_resolution_scrip_master, False),
+        ("GET /api/symbols Search & Offline Fallback", test_api_symbols_search_and_offline_fallback, False),
     ]
     passed = 0
     skipped = 0

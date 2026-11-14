@@ -19,11 +19,23 @@ export interface SeriesPoint {
   factor_2: boolean;
 }
 
-const REGIME_COLORS: Record<string, { bg: string; hex: string; label: string }> = {
-  Markup: { bg: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40", hex: "#10B981", label: "Markup" },
-  Accumulation: { bg: "bg-sky-500/20 text-sky-300 border-sky-500/40", hex: "#38BDF8", label: "Accumulation" },
-  Distribution: { bg: "bg-amber-500/20 text-amber-300 border-amber-500/40", hex: "#F59E0B", label: "Distribution" },
-  Markdown: { bg: "bg-rose-500/20 text-rose-300 border-rose-500/40", hex: "#F43F5E", label: "Markdown" },
+const REGIME_STYLES: Record<string, { pill: string; hex: string }> = {
+  Markup: {
+    pill: "border-[#D2FF00]/50 bg-[#D2FF00]/10 text-[#D2FF00]",
+    hex: "#D2FF00",
+  },
+  Accumulation: {
+    pill: "border-zinc-500/50 bg-zinc-500/10 text-zinc-200",
+    hex: "#A1A1AA",
+  },
+  Distribution: {
+    pill: "border-amber-400/50 bg-amber-400/10 text-amber-300",
+    hex: "#F59E0B",
+  },
+  Markdown: {
+    pill: "border-[#FF3B5C]/50 bg-[#FF3B5C]/10 text-[#FF3B5C]",
+    hex: "#FF3B5C",
+  },
 };
 
 export default function StateSpaceChart({
@@ -42,35 +54,36 @@ export default function StateSpaceChart({
 
     const chart = createChart(containerRef.current, {
       layout: {
-        background: { type: ColorType.Solid, color: "#0B1120" },
-        textColor: "#94A3B8",
+        background: { type: ColorType.Solid, color: "#090A0C" },
+        textColor: "#A1A1AA",
         fontSize: 11,
+        fontFamily: "JetBrains Mono, monospace",
       },
       grid: {
-        vertLines: { color: "rgba(51, 65, 85, 0.25)" },
-        horzLines: { color: "rgba(51, 65, 85, 0.25)" },
+        vertLines: { color: "#181A20" },
+        horzLines: { color: "#181A20" },
       },
       rightPriceScale: {
-        borderColor: "rgba(51, 65, 85, 0.5)",
+        borderColor: "#23262D",
       },
       timeScale: {
-        borderColor: "rgba(51, 65, 85, 0.5)",
+        borderColor: "#23262D",
         timeVisible: false,
       },
       crosshair: {
-        vertLine: { color: "rgba(148, 163, 184, 0.4)", style: LineStyle.Dashed },
-        horzLine: { color: "rgba(148, 163, 184, 0.4)", style: LineStyle.Dashed },
+        vertLine: { color: "rgba(210, 255, 0, 0.35)", style: LineStyle.Dashed },
+        horzLine: { color: "rgba(210, 255, 0, 0.35)", style: LineStyle.Dashed },
       },
       height: 310,
       width: containerRef.current.clientWidth,
     });
 
     const candleSeries = chart.addCandlestickSeries({
-      upColor: "#10B981",
-      downColor: "#F43F5E",
+      upColor: "#D2FF00",
+      downColor: "#FF3B5C",
       borderVisible: false,
-      wickUpColor: "#10B981",
-      wickDownColor: "#F43F5E",
+      wickUpColor: "#D2FF00",
+      wickDownColor: "#FF3B5C",
     });
 
     candleSeries.setData(
@@ -84,7 +97,7 @@ export default function StateSpaceChart({
     );
 
     const kalmanLine = chart.addLineSeries({
-      color: "#38BDF8",
+      color: "#FFFFFF",
       lineWidth: 2,
       title: "2D Kalman Denoised",
     });
@@ -111,53 +124,62 @@ export default function StateSpaceChart({
     };
   }, [series, ticker]);
 
-  const regimeStyle = REGIME_COLORS[currentRegime] || REGIME_COLORS.Accumulation;
+  const regimeStyle = REGIME_STYLES[currentRegime] || REGIME_STYLES.Accumulation;
+
+  if (!series.length) {
+    return (
+      <div className="border border-[#23262D] bg-[#101216] p-6 font-mono text-xs text-zinc-400">
+        NO OHLCV SERIES RETURNED FOR {ticker}. LOAD SNAPSHOT OR LIVE API TO RENDER STATE-SPACE CANVAS.
+      </div>
+    );
+  }
 
   return (
-    <div className="rounded-xl border border-slate-800/90 bg-[#0B1120] p-4 shadow-lg">
+    <div className="border border-[#23262D] bg-[#101216] p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Pane 1 · State-Space Price &amp; HMM Regime Canvas
+          <div className="flex items-center gap-2.5">
+            <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-400">
+              ENGINE 01 // STATE-SPACE &amp; HMM CANVAS
             </span>
-            <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${regimeStyle.bg}`}>
+            <span className={`border px-2 py-0.5 font-mono text-[10px] font-bold uppercase ${regimeStyle.pill}`}>
               HMM: {currentRegime}
             </span>
           </div>
-          <p className="mt-0.5 text-xs text-slate-400">
-            Corporate-action-adjusted NSE Bhavcopy OHLCV vs. 2D Kalman denoised trajectory ({series.length} sessions)
+          <p className="mt-1 font-mono text-[11px] text-zinc-500">
+            Split-adjusted NSE Bhavcopy OHLCV vs. 2D Kalman trajectory ({series.length} sessions)
           </p>
         </div>
 
-        <div className="flex items-center gap-3 text-[11px] text-slate-400">
+        <div className="flex items-center gap-4 font-mono text-[11px] text-zinc-400">
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" /> Bull / Bear OHLC
+            <span className="inline-block h-2 w-2 bg-[#D2FF00]" /> Up / <span className="inline-block h-2 w-2 bg-[#FF3B5C]" /> Down OHLC
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-0.5 w-3.5 bg-sky-400" /> 2D Kalman Filter
+            <span className="inline-block h-0.5 w-3.5 bg-white" /> 2D Kalman
           </span>
         </div>
       </div>
 
-      <div ref={containerRef} className="w-full overflow-hidden rounded-lg border border-slate-800/60" />
+      <div ref={containerRef} className="w-full overflow-hidden border border-[#23262D] bg-[#090A0C]" />
 
-      {/* 4-State Gaussian HMM Regime Ribbon */}
       <div className="mt-3">
-        <div className="mb-1.5 flex items-center justify-between text-[11px] text-slate-400">
-          <span>Causal 4-State HMM Regime Ribbon ({series[0]?.date} → {series[series.length - 1]?.date})</span>
+        <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+          <span>
+            Causal 4-State HMM Ribbon ({series[0]?.date} → {series[series.length - 1]?.date})
+          </span>
           <div className="flex items-center gap-3">
-            {Object.entries(REGIME_COLORS).map(([k, v]) => (
-              <span key={k} className="flex items-center gap-1">
-                <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: v.hex }} />
+            {Object.entries(REGIME_STYLES).map(([k, v]) => (
+              <span key={k} className="flex items-center gap-1 text-zinc-400">
+                <span className="inline-block h-2 w-2" style={{ backgroundColor: v.hex }} />
                 {k}
               </span>
             ))}
           </div>
         </div>
-        <div className="flex h-2.5 w-full overflow-hidden rounded-md border border-slate-800">
+        <div className="flex h-2.5 w-full overflow-hidden border border-[#23262D] bg-[#090A0C]">
           {series.map((pt, idx) => {
-            const c = REGIME_COLORS[pt.regime]?.hex || "#64748B";
+            const c = REGIME_STYLES[pt.regime]?.hex || "#52525B";
             return (
               <div
                 key={`${pt.date}-${idx}`}
@@ -172,4 +194,3 @@ export default function StateSpaceChart({
     </div>
   );
 }
-

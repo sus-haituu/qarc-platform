@@ -10,7 +10,10 @@ import json
 import time
 import datetime
 import statistics
-from typing import Dict, Any, Optional
+import tempfile
+import threading
+import urllib.request
+from typing import Dict, Any, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
@@ -63,6 +66,207 @@ NSE_SYMBOL_TOKEN_MAP: Dict[str, str] = {
     "HAL": "2303",
     "DLF": "14732",
 }
+
+
+# ---------------------------------------------------------------------------
+# Angel One NSE Scrip Master (dynamic token resolution for ANY NSE equity)
+# ---------------------------------------------------------------------------
+SCRIP_MASTER_URL = "https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json"
+SCRIP_MASTER_TTL_SECONDS = 24 * 3600
+SCRIP_MASTER_FAILURE_BACKOFF_SECONDS = 300.0
+_SCRIP_MASTER_LOCK = threading.RLock()
+_SCRIP_MASTER_CACHE: Dict[str, Any] = {
+    "loaded_at": 0.0,
+    "rows": [],
+    "by_symbol": {},
+    "source": "EMPTY",
+    "last_failure_at": 0.0,
+    "last_error": None,
+}
+
+
+def _scrip_master_cache_path() -> str:
+    override = os.getenv("QARC_SCRIP_MASTER_CACHE", "").strip()
+    if override:
+        return override
+    return os.path.join(tempfile.gettempdir(), "qarc_nse_eq_scrip_master.json")
+
+
+def _filter_nse_equities(raw_rows: Any) -> List[Dict[str, str]]:
+    """Keeps only NSE cash-segment '-EQ' equities as {symbol, trading_symbol, token, name}."""
+    out: List[Dict[str, str]] = []
+    if not isinstance(raw_rows, list):
+        return out
+    seen = set()
+    for r in raw_rows:
+        if not isinstance(r, dict):
+            continue
+        if str(r.get("exch_seg", "")).strip().upper() != "NSE":
+            continue
+        tsym = str(r.get("symbol", "")).strip().upper()
+        if not tsym.endswith("-EQ"):
+            continue
+        token = str(r.get("token", "")).strip()
+        if not token:
+            continue
+        clean = tsym[:-3]
+        if not clean or clean in seen:
+            continue
+        seen.add(clean)
+        out.append({
+            "symbol": clean,
+            "trading_symbol": tsym,
+            "token": token,
+            "name": str(r.get("name", "") or clean).strip(),
+        })
+    return out
+
+
+def _set_scrip_master_cache(rows: List[Dict[str, str]], loaded_at: float, source: str) -> None:
+    _SCRIP_MASTER_CACHE["rows"] = rows
+    _SCRIP_MASTER_CACHE["by_symbol"] = {r["symbol"]: r for r in rows}
+    _SCRIP_MASTER_CACHE["loaded_at"] = loaded_at
+    _SCRIP_MASTER_CACHE["source"] = source
+
+
+def _parse_scrip_master_disk(payload: Any) -> List[Dict[str, str]]:
+    """Disk cache stores pre-filtered rows as {"format": "qarc_nse_eq_v1", "rows": [...]}."""
+    if isinstance(payload, dict) and payload.get("format") == "qarc_nse_eq_v1":
+        return [
+            r for r in payload.get("rows", [])
+            if isinstance(r, dict) and r.get("symbol") and r.get("token") and r.get("trading_symbol")
+        ]
+    return _filter_nse_equities(payload)
+
+
+def _download_scrip_master(timeout: float = 20.0) -> Any:
+    req = urllib.request.Request(SCRIP_MASTER_URL, headers={"User-Agent": "Q-ARC/2.0"})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def load_nse_scrip_master(force_refresh: bool = False, allow_network: bool = True) -> List[Dict[str, str]]:
+    """
+    Thread-safe, lazily cached NSE equity Scrip Master.
+    Order: in-memory (<24h) -> disk cache (<24h) -> network download -> stale memory/disk -> [].
+    """
+    with _SCRIP_MASTER_LOCK:
+        now = time.time()
+        rows = _SCRIP_MASTER_CACHE["rows"]
+        if not force_refresh and rows and (now - _SCRIP_MASTER_CACHE["loaded_at"]) < SCRIP_MASTER_TTL_SECONDS:
+            return rows
+
+        path = _scrip_master_cache_path()
+        disk_rows: List[Dict[str, str]] = []
+        disk_mtime = 0.0
+        if os.path.exists(path):
+            try:
+                disk_mtime = os.path.getmtime(path)
+                with open(path, "r", encoding="utf-8") as f:
+                    disk_rows = _parse_scrip_master_disk(json.load(f))
+            except Exception:
+                disk_rows = []
+        if not force_refresh and disk_rows and (now - disk_mtime) < SCRIP_MASTER_TTL_SECONDS:
+            _set_scrip_master_cache(disk_rows, disk_mtime, "DISK_CACHE")
+            return disk_rows
+
+        in_backoff = (now - _SCRIP_MASTER_CACHE["last_failure_at"]) < SCRIP_MASTER_FAILURE_BACKOFF_SECONDS
+        if allow_network and (force_refresh or not in_backoff):
+            try:
+                fresh = _filter_nse_equities(_download_scrip_master())
+                if fresh:
+                    try:
+                        tmp_path = f"{path}.tmp"
+                        with open(tmp_path, "w", encoding="utf-8") as f:
+                            json.dump({"format": "qarc_nse_eq_v1", "saved_at": now, "rows": fresh}, f)
+                        os.replace(tmp_path, path)
+                    except Exception:
+                        pass
+                    _set_scrip_master_cache(fresh, now, "NETWORK")
+                    _SCRIP_MASTER_CACHE["last_error"] = None
+                    return fresh
+                raise ValueError("Scrip Master returned 0 NSE -EQ rows")
+            except Exception as exc:
+                _SCRIP_MASTER_CACHE["last_failure_at"] = now
+                _SCRIP_MASTER_CACHE["last_error"] = str(exc)
+
+        if rows:
+            return rows
+        if disk_rows:
+            _set_scrip_master_cache(disk_rows, disk_mtime, "STALE_DISK_CACHE")
+            return disk_rows
+        return []
+
+
+def _clean_nse_symbol(symbol: str) -> str:
+    sym = str(symbol or "").strip().upper()
+    if sym.endswith(".NS"):
+        sym = sym[:-3]
+    if sym.endswith("-EQ"):
+        sym = sym[:-3]
+    return sym
+
+
+def _resolve_nse_token(symbol: str, allow_network: bool = True) -> Tuple[str, Optional[str], Optional[str]]:
+    """
+    Resolves any NSE equity to (clean_symbol, token, trading_symbol).
+    Checks the static NSE_SYMBOL_TOKEN_MAP first, then the cached Angel One Scrip Master.
+    Returns (clean_symbol, None, None) when unresolvable.
+    """
+    clean = _clean_nse_symbol(symbol)
+    if not clean:
+        return clean, None, None
+    static_tok = NSE_SYMBOL_TOKEN_MAP.get(clean)
+    if static_tok:
+        return clean, static_tok, f"{clean}-EQ"
+    load_nse_scrip_master(allow_network=allow_network)
+    row = _SCRIP_MASTER_CACHE["by_symbol"].get(clean)
+    if row:
+        return clean, row["token"], row["trading_symbol"]
+    return clean, None, None
+
+
+def search_nse_symbols(query: str, limit: int = 15, allow_network: bool = True) -> Dict[str, Any]:
+    """Ranked NSE equity search over the cached Scrip Master (falls back to NSE_SYMBOL_TOKEN_MAP)."""
+    q = _clean_nse_symbol(query)
+    limit = max(1, min(int(limit or 15), 50))
+    rows = load_nse_scrip_master(allow_network=allow_network)
+    source = _SCRIP_MASTER_CACHE["source"] if rows else "STATIC_TOKEN_MAP"
+    if not rows:
+        rows = [
+            {"symbol": s, "trading_symbol": f"{s}-EQ", "token": t, "name": s}
+            for s, t in NSE_SYMBOL_TOKEN_MAP.items()
+        ]
+
+    if not q:
+        ranked = sorted(rows, key=lambda r: r["symbol"])[:limit]
+    else:
+        scored = []
+        for r in rows:
+            sym = r["symbol"]
+            name = str(r.get("name", "")).upper()
+            if sym == q:
+                rank = 0
+            elif sym.startswith(q):
+                rank = 1
+            elif name.startswith(q):
+                rank = 2
+            elif q in sym:
+                rank = 3
+            elif q in name:
+                rank = 4
+            else:
+                continue
+            scored.append((rank, len(sym), sym, r))
+        scored.sort(key=lambda x: (x[0], x[1], x[2]))
+        ranked = [x[3] for x in scored[:limit]]
+
+    return {
+        "query": q,
+        "source": source,
+        "count": len(ranked),
+        "results": [{"symbol": r["symbol"], "name": r.get("name") or r["symbol"], "token": r["token"]} for r in ranked],
+    }
 
 
 class QARCAngelOneClient:
@@ -195,14 +399,13 @@ class QARCAngelOneClient:
         Fetches FULL mode quote (5-level Bid/Ask depth + TBQ/TSQ) from Angel One SmartAPI
         and computes spoofing/wall anomaly metrics for Evidence Ledger E09.
         """
-        sym = symbol.strip().upper()
-        token = NSE_SYMBOL_TOKEN_MAP.get(sym)
+        sym, token, _trading_symbol = _resolve_nse_token(symbol)
         if not token:
             return {
                 "available": False,
                 "symbol": sym,
                 "source": "UNMAPPED_SYMBOL",
-                "reason": f"No NSE symbol token configured for {sym}",
+                "reason": f"No NSE equity token found for {sym} (static map + Scrip Master)",
             }
 
         if not self._ensure_fresh_session():
@@ -330,12 +533,12 @@ class QARCAngelOneClient:
         Fetches L2 5-level depth for up to 50 NSE tickers in a SINGLE Angel One HTTP call
         (~120ms total) to avoid AB1004 rate-limit throttling.
         """
-        clean_syms = [s.upper().replace(".NS", "") for s in symbols]
-        token_to_sym = {
-            NSE_SYMBOL_TOKEN_MAP[s]: s
-            for s in clean_syms
-            if s in NSE_SYMBOL_TOKEN_MAP
-        }
+        clean_syms = [_clean_nse_symbol(s) for s in symbols]
+        token_to_sym: Dict[str, str] = {}
+        for s in clean_syms:
+            _, tok, _ = _resolve_nse_token(s)
+            if tok:
+                token_to_sym[tok] = s
         if not token_to_sym or not self._ensure_fresh_session():
             return {s: {"available": False, "reason": "ANGEL_OFFLINE"} for s in clean_syms}
 
@@ -370,7 +573,7 @@ class QARCAngelOneClient:
         to bridge cached NSE Bhavcopy files right up to today's live bar.
         Returns empty DataFrame gracefully when offline.
         """
-        sym = symbol.strip().upper()
+        sym = _clean_nse_symbol(symbol)
         cache_key = f"{sym}:{interval}:{days_back}"
         if cache_key in self._candle_cache:
             return self._candle_cache[cache_key].copy()
@@ -378,7 +581,7 @@ class QARCAngelOneClient:
         if cached_entry and (time.monotonic() - cached_entry[0]) < 120.0:
             return cached_entry[1].copy()
 
-        token = NSE_SYMBOL_TOKEN_MAP.get(sym)
+        sym, token, _trading_symbol = _resolve_nse_token(sym)
         if not token or not self._ensure_fresh_session():
             return pd.DataFrame()
 
@@ -501,7 +704,7 @@ class QARCAngelOneClient:
         - mode == "PAPER" (default): logs a deterministic simulated fill to disk; never calls placeOrder.
         - mode == "LIVE_ANGEL": authenticates and dispatches smart_api.placeOrder() on NSE.
         """
-        sym = symbol.strip().upper()
+        sym = _clean_nse_symbol(symbol)
         side_clean = side.strip().upper()
         if side_clean not in ("BUY", "SELL"):
             return {"status": "REJECTED", "mode": mode, "reason": f"Invalid side: {side}"}
@@ -538,7 +741,7 @@ class QARCAngelOneClient:
                 pass
             return receipt
 
-        token = NSE_SYMBOL_TOKEN_MAP.get(sym)
+        sym, token, trading_symbol = _resolve_nse_token(sym)
         if not token:
             return {"status": "REJECTED", "mode": "LIVE_ANGEL", "reason": f"Unmapped symbol: {sym}"}
         if not self._ensure_fresh_session():
@@ -548,7 +751,7 @@ class QARCAngelOneClient:
             otype = order_type.strip().upper()
             order_params = {
                 "variety": "NORMAL",
-                "tradingsymbol": f"{sym}-EQ",
+                "tradingsymbol": trading_symbol or f"{sym}-EQ",
                 "symboltoken": token,
                 "transactiontype": side_clean,
                 "exchange": "NSE",

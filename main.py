@@ -1,7 +1,10 @@
 import os
+import json
 import time
 import argparse
 import threading
+import urllib.parse
+import urllib.request
 import concurrent.futures
 from typing import Any, Dict, List, Optional
 import numpy as np
@@ -20,7 +23,7 @@ from qarc_claim_verifier import ClaimVerifier
 from qarc_model_client import QArcModelClient, SYSTEM_PROMPT
 from qarc_pipeline import build_regime_locked_prompt
 from qarc_walk_forward_backtest import adjust_corporate_actions, compute_rolling_hurst
-from qarc_angel_client import QARCAngelOneClient
+from qarc_angel_client import QARCAngelOneClient, search_nse_symbols
 from qarc_portfolio_advisor import (
     compute_price_forecast,
     rank_stock_recommendations,
@@ -274,6 +277,165 @@ def _load_adjusted_bhavcopy(bhavcopy_path: str = "data/raw_bhavcopy_data.csv") -
     return adjust_corporate_actions(df)
 
 
+def _sanitize_for_json(obj: Any) -> Any:
+    """Recursively strips non-JSON Kalman ndarrays and normalizes NumPy scalars for FastAPI responses."""
+    if isinstance(obj, dict):
+        return {
+            str(k): _sanitize_for_json(v)
+            for k, v in obj.items()
+            if k not in ("kalman_price_series", "velocity_series")
+        }
+    if isinstance(obj, (list, tuple)):
+        return [_sanitize_for_json(v) for v in obj]
+    if isinstance(obj, np.ndarray):
+        return [_sanitize_for_json(v) for v in obj.tolist()]
+    if isinstance(obj, np.bool_):
+        return bool(obj)
+    if isinstance(obj, np.integer):
+        return int(obj)
+    if isinstance(obj, np.floating):
+        val = float(obj)
+        return 0.0 if (np.isnan(val) or np.isinf(val)) else val
+    return obj
+
+
+def _build_ui_series(
+    df_work: pd.DataFrame,
+    kalman_res: Dict[str, Any],
+    max_bars: int = 120,
+) -> List[Dict[str, Any]]:
+    """Builds chronological SeriesPoint[] payload (candlesticks + Kalman + regime) for StateSpaceChart."""
+    if df_work is None or df_work.empty:
+        return []
+
+    closes = df_work["close"].values.astype(float)
+    opens = df_work["open"].values.astype(float) if "open" in df_work.columns else closes
+    highs = df_work["high"].values.astype(float) if "high" in df_work.columns else closes
+    lows = df_work["low"].values.astype(float) if "low" in df_work.columns else closes
+    volumes = df_work["volume"].values.astype(float) if "volume" in df_work.columns else np.zeros(len(closes))
+    dates = pd.to_datetime(df_work["date"]).dt.strftime("%Y-%m-%d").values
+    deliv_col = "DELIVERY_PCT" if "DELIVERY_PCT" in df_work.columns else (
+        "delivery_pct" if "delivery_pct" in df_work.columns else None
+    )
+    deliv = df_work[deliv_col].values.astype(float) if deliv_col else np.full(len(closes), 45.0)
+
+    kalman_series = kalman_res.get("kalman_price_series")
+    vel_series = kalman_res.get("velocity_series")
+    if (
+        kalman_series is None
+        or vel_series is None
+        or len(kalman_series) != len(closes)
+        or len(vel_series) != len(closes)
+    ):
+        from quant_engines import KalmanTrendFilter
+
+        kf = KalmanTrendFilter().filter_series(closes)
+        kalman_series = kf["kalman_price_series"]
+        vel_series = kf["velocity_series"]
+
+    close_s = pd.Series(closes)
+    sma_20 = close_s.rolling(20, min_periods=1).mean().values
+    sma_10 = close_s.rolling(10, min_periods=1).mean().values
+    sma_30 = close_s.rolling(30, min_periods=1).mean().values
+
+    returns = np.zeros(len(closes))
+    if len(closes) > 1:
+        returns[1:] = (closes[1:] - closes[:-1]) / np.maximum(closes[:-1], 1e-6)
+
+    diff = close_s.diff()
+    gain = diff.where(diff > 0, 0).rolling(14, min_periods=1).mean()
+    loss = (-diff.where(diff < 0, 0)).rolling(14, min_periods=1).mean()
+    rsi_14 = (100 - (100 / (1 + gain / np.maximum(loss, 1e-6)))).fillna(50.0).values
+
+    deliv_s = pd.Series(deliv)
+    deliv_z = (
+        (deliv_s - deliv_s.rolling(30, min_periods=5).mean())
+        / (deliv_s.rolling(30, min_periods=5).std() + 1e-6)
+    ).fillna(0.0).values
+
+    n = len(closes)
+    start_idx = max(0, n - max_bars)
+    points: List[Dict[str, Any]] = []
+    for t in range(start_idx, n):
+        p_t = float(closes[t])
+        kv = (sma_10[t] - sma_30[t]) / max(p_t, 1.0) * 100.0
+        ret_20d = (closes[t] - closes[max(0, t - 20)]) / max(closes[max(0, t - 20)], 1e-6)
+        if kv < -0.15 and ret_20d < -0.02:
+            regime = "Markdown"
+        elif kv < 0.0 and p_t < sma_20[t]:
+            regime = "Distribution"
+        elif kv > 0.10 and p_t > sma_20[t]:
+            regime = "Markup"
+        else:
+            regime = "Accumulation"
+
+        f1 = bool(rsi_14[t] > 60.0 and kv < 0.0 and deliv_z[t] < 0.0)
+        f2 = bool(returns[t] * 100.0 > 1.0 and deliv[t] < 40.0 and kv < -0.1)
+        k_val = float(kalman_series[t])
+        points.append({
+            "date": str(dates[t]),
+            "open": round(float(opens[t]), 2),
+            "high": round(float(highs[t]), 2),
+            "low": round(float(lows[t]), 2),
+            "close": round(p_t, 2),
+            "kalman": round(k_val, 2),
+            "velocity_pct": round(float((vel_series[t] / max(k_val, 1e-4)) * 100.0), 3),
+            "volume": int(volumes[t]) if np.isfinite(volumes[t]) else 0,
+            "delivery_pct": round(float(deliv[t]), 1),
+            "rsi_14": round(float(rsi_14[t]), 1),
+            "regime": regime,
+            "factor_1": f1,
+            "factor_2": f2,
+        })
+    return points
+
+
+def _fetch_yahoo_nse_ohlcv_fallback(symbol: str, timeout: float = 5.0) -> pd.DataFrame:
+    """Fetches 1Y daily NSE candles from Yahoo Finance chart API when Bhavcopy & Angel One lack history."""
+    clean = symbol.strip().upper().replace(".NS", "").replace("-EQ", "")
+    if not clean:
+        return pd.DataFrame()
+    yahoo_sym = urllib.parse.quote(f"{clean}.NS", safe="")
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{yahoo_sym}?range=1y&interval=1d"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 Q-ARC/2.0"})
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            payload = json.loads(resp.read().decode("utf-8"))
+        result = ((payload or {}).get("chart", {}).get("result") or [None])[0]
+        if not result:
+            return pd.DataFrame()
+        timestamps = result.get("timestamp") or []
+        quote = ((result.get("indicators", {}).get("quote") or [None])[0]) or {}
+        opens = quote.get("open") or []
+        highs = quote.get("high") or []
+        lows = quote.get("low") or []
+        closes = quote.get("close") or []
+        volumes = quote.get("volume") or []
+        rows: List[Dict[str, Any]] = []
+        for i, ts in enumerate(timestamps):
+            c = closes[i] if i < len(closes) else None
+            if c is None:
+                continue
+            o = opens[i] if i < len(opens) and opens[i] is not None else c
+            h = highs[i] if i < len(highs) and highs[i] is not None else c
+            l = lows[i] if i < len(lows) and lows[i] is not None else c
+            v = volumes[i] if i < len(volumes) and volumes[i] is not None else 0
+            rows.append({
+                "ticker": clean,
+                "date": pd.to_datetime(int(ts), unit="s", utc=True).tz_localize(None).normalize(),
+                "open": float(o),
+                "high": float(h),
+                "low": float(l),
+                "close": float(c),
+                "volume": float(v),
+            })
+        if not rows:
+            return pd.DataFrame()
+        return pd.DataFrame(rows).drop_duplicates(subset=["date"], keep="last").sort_values("date").reset_index(drop=True)
+    except Exception:
+        return pd.DataFrame()
+
+
 def _prepare_ticker_market_snapshot(
     stock_df: pd.DataFrame,
     ticker_clean: str,
@@ -425,6 +587,18 @@ def _prepare_ticker_market_snapshot(
         regime_code=hmm_regime,
     )
 
+    series = _build_ui_series(df_work, kalman_res, max_bars=120)
+    hurst_routing_mode = (
+        "MEAN_REVERSION_CHOP" if hurst < 0.45
+        else "PERSISTENT_TREND" if hurst > 0.52
+        else "RANDOM_WALK_NEUTRAL"
+    )
+    active_factors = {
+        "factor_1_short_covering": has_factor_1,
+        "factor_2_squeeze": has_factor_2,
+        "factor_4b_deal_churn": has_factor_4b,
+    }
+
     return {
         "market_data": market_data,
         "quant_res": quant_res,
@@ -433,6 +607,10 @@ def _prepare_ticker_market_snapshot(
         "date_str": date_str,
         "state_vector": state_vector,
         "screener_payload": screener_payload,
+        "series": series,
+        "hurst_60d": round(hurst, 3),
+        "hurst_routing_mode": hurst_routing_mode,
+        "active_factors": active_factors,
     }
 
 
@@ -451,12 +629,40 @@ def analyze_bcp_endpoint(
     """
     t_start = time.perf_counter()
     ticker_clean = ticker.strip().upper()
-    df = _load_adjusted_bhavcopy(bhavcopy_path)
-    stock_df = df[df["ticker"] == ticker_clean].sort_values("date").copy()
-    if len(stock_df) < 30:
-        raise ValueError(f"Insufficient historical bars for {ticker_clean} ({len(stock_df)} bars)")
+    if ticker_clean.endswith(".NS"):
+        ticker_clean = ticker_clean[:-3]
+    if ticker_clean.endswith("-EQ"):
+        ticker_clean = ticker_clean[:-3]
+    try:
+        df = _load_adjusted_bhavcopy(bhavcopy_path)
+        stock_df = df[df["ticker"] == ticker_clean].sort_values("date").copy()
+    except FileNotFoundError:
+        if not use_live_angel:
+            raise
+        stock_df = pd.DataFrame()
 
     angel_client = _get_angel_client() if use_live_angel else None
+    history_source = "NSE_BHAVCOPY_CACHE"
+    if len(stock_df) < 30 and angel_client is not None:
+        # Any-NSE-stock path: resolve token via Scrip Master and pull ~400 days of live OHLCV
+        try:
+            live_hist = angel_client.fetch_historical_ohlcv(ticker_clean, interval="ONE_DAY", days_back=400)
+        except Exception:
+            live_hist = pd.DataFrame()
+        if len(live_hist) >= 30:
+            stock_df = live_hist.sort_values("date").reset_index(drop=True)
+            history_source = "ANGEL_ONE_LIVE_OHLCV"
+    if len(stock_df) < 30:
+        yahoo_hist = _fetch_yahoo_nse_ohlcv_fallback(ticker_clean)
+        if len(yahoo_hist) >= 30:
+            stock_df = yahoo_hist
+            history_source = "YAHOO_FINANCE_NSE_OHLCV"
+    if len(stock_df) < 30:
+        raise ValueError(
+            f"Insufficient historical bars for {ticker_clean} ({len(stock_df)} bars). "
+            "Ticker is not in the cached Bhavcopy universe and live Angel/Yahoo OHLCV was unavailable."
+        )
+
     snapshot = _prepare_ticker_market_snapshot(
         stock_df=stock_df,
         ticker_clean=ticker_clean,
@@ -465,6 +671,7 @@ def analyze_bcp_endpoint(
         use_live_angel=use_live_angel,
     )
     market_data = snapshot["market_data"]
+    market_data["history_source"] = history_source
     quant_res = snapshot["quant_res"]
     price_forecast = snapshot["price_forecast"]
     live_l2_quote = snapshot["live_l2_quote"]
@@ -563,10 +770,15 @@ def analyze_bcp_endpoint(
     except Exception:
         pass
 
-    return {
+    return _sanitize_for_json({
         "ticker": ticker_clean,
         "date": date_str,
+        "history_source": history_source,
         "latency_ms": round((time.perf_counter() - t_start) * 1000.0, 2),
+        "hurst_60d": snapshot["hurst_60d"],
+        "hurst_routing_mode": snapshot["hurst_routing_mode"],
+        "active_factors": snapshot["active_factors"],
+        "series": snapshot["series"],
         "evidence_ledger": {
             code: {
                 "category": item.category,
@@ -593,7 +805,7 @@ def analyze_bcp_endpoint(
             "verification_status": verified_bcp.verification_status,
             "field_badges": field_badges,
         },
-    }
+    })
 
 
 def get_recommendations_endpoint(
@@ -822,6 +1034,10 @@ try:
     @app.get("/api/health")
     def api_health():
         return {"status": "ok", "engine": "Q-ARC Neuro-Symbolic BCP v2"}
+
+    @app.get("/api/symbols")
+    def api_symbols(q: str = "", limit: int = 15):
+        return search_nse_symbols(q, limit=limit)
 
     @app.post("/api/config/llm_endpoint")
     def api_config_llm_endpoint(

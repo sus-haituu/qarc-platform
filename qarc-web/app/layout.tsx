@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Q-ARC | Neuro-Symbolic Counterparty Intelligence Terminal",
+  title: "Q-ARC | Neuro-Symbolic Counterparty Intelligence",
   description:
-    "Institutional state-space quantitative risk engines + E01-E13 Evidence Ledger & zero-contradiction Claim Verifier guardrail.",
+    "Causal 4-State Gaussian HMM, 2D Kalman Filter, Neon pgvector Regime Twins, E08 News RAG, and Deterministic Pre-Trade Risk Gate for Indian Equities (NSE).",
 };
 
 export default function RootLayout({
@@ -13,11 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-[#090D16] text-slate-100 antialiased selection:bg-emerald-500/20 selection:text-emerald-300">
+    <html
+      lang="en"
+      className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+    >
+      <body className="min-h-screen bg-[#090A0C] font-sans text-zinc-100 antialiased selection:bg-[#D2FF00] selection:text-[#090A0C]">
         {children}
       </body>
     </html>
   );
 }
-
