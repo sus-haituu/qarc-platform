@@ -90,6 +90,7 @@ class QARCAngelOneClient:
         self.totp_secret = os.getenv("ANGEL_TOTP_SECRET", "").strip()
         self.smart_api = None
         self.auth_token: Optional[str] = None
+        self.last_auth_time: float = 0.0
         self.last_error: Optional[str] = None
         self._candle_cache: Dict[str, pd.DataFrame] = {}
 
@@ -103,7 +104,11 @@ class QARCAngelOneClient:
     def sleep_rate_limit(self, seconds: float = 0.38) -> None:
         time.sleep(seconds)
 
-    def authenticate(self) -> bool:
+    def authenticate(self, force: bool = False) -> bool:
+        if force:
+            self.smart_api = None
+            self.auth_token = None
+            self.last_auth_time = 0.0
         if not self.is_configured():
             self.last_error = "Missing Angel One credentials in environment/.env"
             return False
@@ -125,11 +130,65 @@ class QARCAngelOneClient:
                 return False
             self.smart_api = smart_api
             self.auth_token = session.get("data", {}).get("jwtToken")
+            self.last_auth_time = time.time()
             self.last_error = None
             return True
         except Exception as exc:
             self.last_error = f"Angel One auth exception: {exc}"
             return False
+
+    def _ensure_fresh_session(self, force_reauth: bool = False) -> bool:
+        """
+        Ensures an active SmartAPI session, forcing re-authentication when
+        `force_reauth=True` or when the JWT age exceeds 20 hours (72000s).
+        """
+        stale = self.last_auth_time > 0.0 and (time.time() - self.last_auth_time) > 72000.0
+        if force_reauth or stale:
+            self.smart_api = None
+            self.auth_token = None
+            self.last_auth_time = 0.0
+            return self.authenticate(force=True)
+        return self.authenticate()
+
+    @staticmethod
+    def _is_session_expired_resp(resp: Any) -> bool:
+        """Detects Angel One JWT expiry codes (AB1010, AB1007, AG8001) or token-expired messages."""
+        if resp is None:
+            return False
+        expired_codes = {"AB1010", "AB1007", "AG8001"}
+        expired_phrases = (
+            "invalid token",
+            "expired token",
+            "token expired",
+            "session expired",
+            "unauthorized",
+        )
+        if isinstance(resp, dict):
+            code = str(resp.get("errorcode") or resp.get("errorCode") or "").strip().upper()
+            if code in expired_codes:
+                return True
+            msg = str(resp.get("message") or "").lower()
+            if any(phrase in msg for phrase in expired_phrases):
+                return True
+            return False
+        text = str(resp)
+        upper = text.upper()
+        if any(code in upper for code in expired_codes):
+            return True
+        lower = text.lower()
+        return any(phrase in lower for phrase in expired_phrases)
+
+    def _invoke_smartapi_with_reauth(self, fn) -> Any:
+        """Executes a SmartAPI callable and retries once after forced pyotp re-authentication on expired JWT."""
+        try:
+            resp = fn()
+        except Exception as exc:
+            if self._is_session_expired_resp(exc) and self._ensure_fresh_session(force_reauth=True):
+                return fn()
+            raise
+        if self._is_session_expired_resp(resp) and self._ensure_fresh_session(force_reauth=True):
+            resp = fn()
+        return resp
 
     def fetch_live_l2_depth_e09(self, symbol: str, allow_fallback: bool = False) -> Dict[str, Any]:
         """
@@ -146,7 +205,7 @@ class QARCAngelOneClient:
                 "reason": f"No NSE symbol token configured for {sym}",
             }
 
-        if not self.authenticate():
+        if not self._ensure_fresh_session():
             return {
                 "available": False,
                 "symbol": sym,
@@ -156,8 +215,11 @@ class QARCAngelOneClient:
             }
 
         try:
-            self._throttle_api()
-            resp = self.smart_api.getMarketData("FULL", {"NSE": [token]})
+            def _call():
+                self._throttle_api()
+                return self.smart_api.getMarketData("FULL", {"NSE": [token]})
+
+            resp = self._invoke_smartapi_with_reauth(_call)
             if not resp or not resp.get("status"):
                 msg = resp.get("message", "Market data error") if isinstance(resp, dict) else "Empty response"
                 return {
@@ -274,12 +336,15 @@ class QARCAngelOneClient:
             for s in clean_syms
             if s in NSE_SYMBOL_TOKEN_MAP
         }
-        if not token_to_sym or (not self.is_authenticated and not self.authenticate()):
+        if not token_to_sym or not self._ensure_fresh_session():
             return {s: {"available": False, "reason": "ANGEL_OFFLINE"} for s in clean_syms}
 
         try:
-            self._throttle_api()
-            res = self.smart_api.getMarketData("FULL", {"NSE": list(token_to_sym.keys())})
+            def _call():
+                self._throttle_api()
+                return self.smart_api.getMarketData("FULL", {"NSE": list(token_to_sym.keys())})
+
+            res = self._invoke_smartapi_with_reauth(_call)
             fetched_list = (res or {}).get("data", {}).get("fetched", [])
             out: dict[str, dict] = {}
             for quote in fetched_list:
@@ -314,7 +379,7 @@ class QARCAngelOneClient:
             return cached_entry[1].copy()
 
         token = NSE_SYMBOL_TOKEN_MAP.get(sym)
-        if not token or not self.authenticate():
+        if not token or not self._ensure_fresh_session():
             return pd.DataFrame()
 
         try:
@@ -333,9 +398,12 @@ class QARCAngelOneClient:
                 if attempt > 0:
                     time.sleep(1.3 * attempt)
                 try:
-                    time.sleep(0.38)
-                    self._throttle_api(0.6)
-                    resp = self.smart_api.getCandleData(params)
+                    def _call():
+                        time.sleep(0.38)
+                        self._throttle_api(0.6)
+                        return self.smart_api.getCandleData(params)
+
+                    resp = self._invoke_smartapi_with_reauth(_call) if attempt == 0 else _call()
                     if resp and resp.get("status") and resp.get("data"):
                         break
                 except Exception as exc:
@@ -473,7 +541,7 @@ class QARCAngelOneClient:
         token = NSE_SYMBOL_TOKEN_MAP.get(sym)
         if not token:
             return {"status": "REJECTED", "mode": "LIVE_ANGEL", "reason": f"Unmapped symbol: {sym}"}
-        if not self.authenticate():
+        if not self._ensure_fresh_session():
             return {"status": "REJECTED", "mode": "LIVE_ANGEL", "reason": self.last_error or "Auth failed"}
 
         try:
@@ -492,11 +560,21 @@ class QARCAngelOneClient:
                 "stoploss": "0",
                 "quantity": str(int(quantity)),
             }
-            broker_resp = self.smart_api.placeOrder(order_params)
+            broker_resp = self._invoke_smartapi_with_reauth(
+                lambda: self.smart_api.placeOrder(order_params)
+            )
+            order_ok = bool(broker_resp) and not (
+                isinstance(broker_resp, dict) and broker_resp.get("status") is False
+            )
+            order_id = (
+                str(broker_resp.get("data", {}).get("orderid") or broker_resp.get("orderid") or "")
+                if isinstance(broker_resp, dict)
+                else (str(broker_resp) if broker_resp else None)
+            )
             return {
-                "status": "LIVE_ORDER_SUBMITTED" if broker_resp else "LIVE_ORDER_FAILED",
+                "status": "LIVE_ORDER_SUBMITTED" if order_ok else "LIVE_ORDER_FAILED",
                 "mode": "LIVE_ANGEL",
-                "order_id": str(broker_resp) if broker_resp else None,
+                "order_id": order_id or None,
                 "symbol": sym,
                 "side": side_clean,
                 "quantity": int(quantity),

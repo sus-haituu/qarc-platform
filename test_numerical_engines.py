@@ -986,6 +986,235 @@ def test_e08_rag_live_gemini_retrieval():
     assert "RETRIEVED E08 CATALYST RAG" in ledger.items["E08"].description
 
 
+def test_angel_jwt_auto_refresh_and_ab1010_retry():
+    """
+    Test #25: Verifies QARCAngelOneClient 20h JWT staleness expiry and single pyotp
+    re-auth + retry when SmartConnect returns AB1010 once then succeeds.
+    """
+    import sys
+    import time
+    import types
+    from unittest.mock import patch
+    from qarc_angel_client import QARCAngelOneClient
+
+    auth_calls = []
+    quote_calls = []
+
+    class MockSmartConnect:
+        def __init__(self, api_key=None):
+            self.api_key = api_key
+
+        def generateSession(self, client_code, password, totp):
+            auth_calls.append((client_code, totp))
+            return {
+                "status": True,
+                "data": {"jwtToken": f"jwt-{len(auth_calls)}"},
+            }
+
+        def getMarketData(self, mode, payload):
+            quote_calls.append((mode, payload))
+            if len(quote_calls) == 1:
+                return {
+                    "status": False,
+                    "errorcode": "AB1010",
+                    "message": "Invalid Token",
+                }
+            return {
+                "status": True,
+                "data": {
+                    "fetched": [
+                        {
+                            "symbolToken": "2885",
+                            "tradingSymbol": "RELIANCE-EQ",
+                            "ltp": 1415.0,
+                            "open": 1402.0,
+                            "high": 1420.0,
+                            "low": 1400.0,
+                            "close": 1405.0,
+                            "avgPrice": 1411.0,
+                            "tradeVolume": 4500000,
+                            "totBuyQuan": 250000,
+                            "totSellQuan": 180000,
+                            "depth": {
+                                "buy": [{"price": 1414.9, "quantity": 1200}],
+                                "sell": [{"price": 1415.1, "quantity": 900}],
+                            },
+                        }
+                    ]
+                },
+            }
+
+    fake_smartapi = types.ModuleType("SmartApi")
+    fake_smartapi.SmartConnect = MockSmartConnect
+    fake_logzero = types.ModuleType("logzero")
+    fake_logzero.loglevel = lambda *_args, **_kwargs: None
+
+    client = QARCAngelOneClient()
+    client.api_key = "MOCK_API_KEY"
+    client.client_code = "MOCK_CLIENT"
+    client.password = "MOCK_PASS"
+    client.totp_secret = "JBSWY3DPEHPK3PXP"
+    client.smart_api = None
+    client.auth_token = None
+    client.last_auth_time = 0.0
+
+    with patch.dict(sys.modules, {"SmartApi": fake_smartapi, "logzero": fake_logzero}):
+        assert client._ensure_fresh_session() is True
+        assert len(auth_calls) == 1
+        assert client.last_auth_time > 0.0
+
+        # Simulate >20h JWT age (> 72000s) forcing proactive re-auth
+        client.last_auth_time = time.time() - 72500.0
+        assert client._ensure_fresh_session() is True
+        assert len(auth_calls) == 2
+
+        # Simulate AB1010 on first getMarketData call -> auto re-auth once -> retry succeeds
+        res = client.fetch_live_l2_depth_e09("RELIANCE")
+        assert res["available"] is True, f"Expected E09 retry success, got {res}"
+        assert res["ltp"] == 1415.0
+        assert len(auth_calls) == 3, f"Expected 1 re-auth on AB1010, got auth_calls={len(auth_calls)}"
+        assert len(quote_calls) == 2, f"Expected 2 quote attempts (initial + 1 retry), got {len(quote_calls)}"
+
+
+def test_runtime_llm_endpoint_handshake_and_fast_fallback():
+    """
+    Test #26: Verifies POST /api/config/llm_endpoint secret guard + URL validation + runtime
+    update and confirms QArcModelClient falls back to _heuristic_baseline in <4s when offline.
+    """
+    import os
+    import socket
+    import time
+    from fastapi.testclient import TestClient
+    import main
+    from qarc_model_client import QArcModelClient
+
+    orig_secret = os.environ.get("QARC_ADMIN_SECRET")
+    orig_env_ep = os.environ.get("QARC_MODEL_ENDPOINT")
+    orig_runtime_ep = main.get_runtime_llm_endpoint()
+
+    # Reserve a guaranteed closed local port so connect refuses quickly (<4s)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(("127.0.0.1", 0))
+    closed_port = sock.getsockname()[1]
+    sock.close()
+    closed_ep = f"http://127.0.0.1:{closed_port}/v1"
+
+    try:
+        os.environ["QARC_ADMIN_SECRET"] = "test-handshake-secret"
+        tc = TestClient(main.app)
+
+        r_bad_sec = tc.post(
+            "/api/config/llm_endpoint",
+            json={"endpoint_url": closed_ep},
+            headers={"X-QARC-Admin-Secret": "wrong-secret"},
+        )
+        assert r_bad_sec.status_code == 401, f"Expected 401, got {r_bad_sec.status_code}"
+
+        r_bad_url = tc.post(
+            "/api/config/llm_endpoint",
+            json={"endpoint_url": "ftp://invalid-scheme"},
+            headers={"X-QARC-Admin-Secret": "test-handshake-secret"},
+        )
+        assert r_bad_url.status_code == 400, f"Expected 400, got {r_bad_url.status_code}"
+
+        r_ok = tc.post(
+            "/api/config/llm_endpoint",
+            json={"endpoint_url": closed_ep},
+            headers={"X-QARC-Admin-Secret": "test-handshake-secret"},
+        )
+        assert r_ok.status_code == 200, f"Expected 200, got {r_ok.status_code}: {r_ok.text}"
+        assert r_ok.json()["endpoint_url"] == closed_ep
+        assert main.get_runtime_llm_endpoint() == closed_ep
+        assert os.environ.get("QARC_MODEL_ENDPOINT") == closed_ep
+
+        t0 = time.perf_counter()
+        llm = QArcModelClient(endpoint_url=main.get_runtime_llm_endpoint())
+        out = llm.generate_bcp_profile(
+            "E01 [FACT] Daily Return: Price moved from Rs 100 to Rs 102 (+2.00%)\n"
+            "E02 [FACT] VWAP Deviation: Close is 1.20% above session VWAP\n"
+            "E03 [FACT] Delivery Percentage: 58.0% delivery to traded volume"
+        )
+        elapsed = time.perf_counter() - t0
+        assert elapsed < 4.0, f"Expected fast <4s fallback when endpoint offline, took {elapsed:.2f}s"
+        assert "counterparty_type" in out and "dominant_intent" in out and "counter_strategy" in out
+    finally:
+        if orig_secret is None:
+            os.environ.pop("QARC_ADMIN_SECRET", None)
+        else:
+            os.environ["QARC_ADMIN_SECRET"] = orig_secret
+        if orig_env_ep is None:
+            os.environ.pop("QARC_MODEL_ENDPOINT", None)
+        else:
+            os.environ["QARC_MODEL_ENDPOINT"] = orig_env_ep
+        with main._RUNTIME_LLM_LOCK:
+            main._RUNTIME_LLM_ENDPOINT = orig_runtime_ep
+
+
+def test_live_news_api_and_rss_fallback_degradation():
+    """
+    Test #27: Verifies fetch_ticker_news() RSS fallback parsing into clean structured records
+    and graceful [] return on timeout.
+    """
+    import os
+    from unittest.mock import patch
+    import requests
+    import fetch_news
+
+    sample_rss = b"""<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+      <channel>
+        <title>RELIANCE NSE stock - Google News</title>
+        <item>
+          <title>Reliance Industries announces Q3 retail expansion - Economic Times</title>
+          <link>https://example.com/news/reliance-q3</link>
+          <pubDate>Fri, 09 Oct 2026 10:30:00 GMT</pubDate>
+          <source url="https://economictimes.indiatimes.com">Economic Times</source>
+        </item>
+        <item>
+          <title>Reliance Jio subscriber base hits new high - Mint</title>
+          <link>https://example.com/news/jio-growth</link>
+          <pubDate>Thu, 08 Oct 2026 08:15:00 GMT</pubDate>
+          <source url="https://www.livemint.com">Mint</source>
+        </item>
+      </channel>
+    </rss>"""
+
+    class MockResp:
+        def __init__(self, status_code, content=b"", json_data=None):
+            self.status_code = status_code
+            self.content = content
+            self._json = json_data or {}
+
+        def json(self):
+            return self._json
+
+    orig_news_key = os.environ.get("NEWS_API_KEY")
+    try:
+        # 1. Missing NEWS_API_KEY -> Google News RSS path
+        os.environ.pop("NEWS_API_KEY", None)
+        with patch.object(fetch_news.requests, "get", return_value=MockResp(200, content=sample_rss)):
+            items = fetch_news.fetch_ticker_news("RELIANCE", days_back=3, limit=5)
+        assert len(items) == 2, f"Expected 2 parsed RSS items, got {items}"
+        assert set(items[0].keys()) == {"title", "published_at", "source", "url"}
+        assert items[0]["published_at"] == "2026-10-09T10:30:00Z"
+        assert items[0]["source"] == "Economic Times"
+        assert items[0]["url"] == "https://example.com/news/reliance-q3"
+
+        # 2. Timeout -> graceful [] return
+        with patch.object(
+            fetch_news.requests,
+            "get",
+            side_effect=requests.exceptions.Timeout("simulated 3s timeout"),
+        ):
+            timed_out = fetch_news.fetch_ticker_news("RELIANCE", days_back=3, limit=5)
+        assert timed_out == [], f"Expected [] on timeout, got {timed_out}"
+    finally:
+        if orig_news_key is None:
+            os.environ.pop("NEWS_API_KEY", None)
+        else:
+            os.environ["NEWS_API_KEY"] = orig_news_key
+
+
 if __name__ == "__main__":
     import os
     from dotenv import load_dotenv
@@ -1022,6 +1251,9 @@ if __name__ == "__main__":
         ("E08 RAG Offline Unchanged Abstention", test_e08_rag_offline_no_key_abstains_unchanged, False),
         ("E08 RAG Mocked Embedding Date Filter", test_e08_rag_mocked_embedding_respects_date_filter, True),
         ("E08 Live Gemini RAG Retrieval", test_e08_rag_live_gemini_retrieval, True),
+        ("Angel One JWT Auto-Refresh & AB1010 Retry", test_angel_jwt_auto_refresh_and_ab1010_retry, False),
+        ("Runtime Colab LLM Handshake & <4s Fallback", test_runtime_llm_endpoint_handshake_and_fast_fallback, False),
+        ("Live News API & RSS Fallback Degradation", test_live_news_api_and_rss_fallback_degradation, False),
     ]
     passed = 0
     skipped = 0

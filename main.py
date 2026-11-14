@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 from fetch_data import build_historical_dataset, fetch_historical_bulk_block_deals, DATA_DIR
 from compute_indicators import compute_all_indicators, sample_dates_per_ticker
-from fetch_news import fetch_headlines
+from fetch_news import fetch_headlines, fetch_ticker_news
 from generate_labels import generate_bcp_label
 from validate_and_split import validate_and_split_data
 from quant_engines import compute_all_quant_engines
@@ -26,7 +26,12 @@ from qarc_portfolio_advisor import (
     rank_stock_recommendations,
     generate_institutional_portfolio,
 )
-from qarc_vector_memory import build_8d_state_vector, search_historical_twins, retrieve_catalyst_rag
+from qarc_vector_memory import (
+    build_8d_state_vector,
+    search_historical_twins,
+    retrieve_catalyst_rag,
+    upsert_catalysts_to_neon,
+)
 
 DEFAULT_WATCHLIST_TICKERS: List[str] = [
     "RELIANCE",
@@ -40,6 +45,32 @@ DEFAULT_WATCHLIST_TICKERS: List[str] = [
 ]
 
 _SHARED_ANGEL_CLIENT = None
+_RUNTIME_LLM_LOCK = threading.Lock()
+_RUNTIME_LLM_ENDPOINT: str = os.getenv("QARC_MODEL_ENDPOINT", "http://localhost:8000/v1").strip()
+
+
+def get_runtime_llm_endpoint() -> str:
+    with _RUNTIME_LLM_LOCK:
+        return _RUNTIME_LLM_ENDPOINT
+
+
+def set_runtime_llm_endpoint(
+    endpoint_url: str,
+    admin_secret: Optional[str] = None,
+) -> Dict[str, Any]:
+    expected_secret = os.getenv("QARC_ADMIN_SECRET", "").strip()
+    if expected_secret and (admin_secret or "").strip() != expected_secret:
+        raise PermissionError("Unauthorized: invalid X-QARC-Admin-Secret")
+
+    cleaned = str(endpoint_url or "").strip()
+    if not cleaned or not (cleaned.startswith("http://") or cleaned.startswith("https://")):
+        raise ValueError("Invalid endpoint_url: must start with http:// or https://")
+
+    global _RUNTIME_LLM_ENDPOINT
+    with _RUNTIME_LLM_LOCK:
+        _RUNTIME_LLM_ENDPOINT = cleaned
+        os.environ["QARC_MODEL_ENDPOINT"] = cleaned
+    return {"status": "updated", "endpoint_url": cleaned}
 
 
 def _get_angel_client() -> QARCAngelOneClient:
@@ -411,6 +442,7 @@ def analyze_bcp_endpoint(
     bhavcopy_path: str = "data/raw_bhavcopy_data.csv",
     max_retries: int = 0,
     use_live_angel: bool = True,
+    llm_endpoint_url: Optional[str] = None,
 ) -> dict:
     """
     Production neuro-symbolic BCP analyzer backing POST /api/bcp_analyze.
@@ -468,7 +500,8 @@ def analyze_bcp_endpoint(
     )
     prov_ledger = build_provenance_ledger(market_data)
 
-    client = QArcModelClient()
+    resolved_endpoint = (llm_endpoint_url or "").strip() or get_runtime_llm_endpoint()
+    client = QArcModelClient(endpoint_url=resolved_endpoint)
     locked_prompt = build_regime_locked_prompt(ledger, SYSTEM_PROMPT)
     raw_bcp = client.generate_bcp_profile(ledger.to_prompt_text(), system_prompt_override=locked_prompt)
 
@@ -647,6 +680,60 @@ def get_trades_endpoint(limit: int = 20) -> Dict[str, Any]:
     return {"count": len(rows), "trades": rows}
 
 
+def get_ticker_news_endpoint(
+    ticker: str,
+    days_back: int = 3,
+    limit: int = 5,
+    refresh_e08: bool = True,
+) -> Dict[str, Any]:
+    """
+    Live news endpoint backing GET /api/news/{ticker}. Optionally embeds & upserts
+    fresh headlines into Neon `nse_catalyst_rag` when GEMINI_API_KEY + DATABASE_URL are set.
+    """
+    sym = ticker.strip().upper().replace(".NS", "")
+    if not sym:
+        raise ValueError("ticker must be non-empty")
+
+    articles = fetch_ticker_news(sym, days_back=days_back, limit=limit)
+    e08_refreshed = False
+    e08_upserted = 0
+
+    has_gemini = bool(os.getenv("GEMINI_API_KEY", "").strip())
+    has_db = bool((os.getenv("TEST_DATABASE_URL") or os.getenv("DATABASE_URL") or "").strip())
+    if refresh_e08 and articles and has_gemini and has_db:
+        try:
+            docs = []
+            for art in articles:
+                hl = str(art.get("title", "")).strip()
+                pub = str(art.get("published_at", ""))[:10]
+                if len(pub) != 10:
+                    pub = pd.Timestamp.utcnow().strftime("%Y-%m-%d")
+                if hl:
+                    docs.append(
+                        {
+                            "symbol": sym,
+                            "filing_date": pub,
+                            "headline": hl,
+                            "category": "NEWS_HEADLINE",
+                            "source": f"fetch_news:{art.get('source', 'live_news')}",
+                        }
+                    )
+            if docs:
+                stats = upsert_catalysts_to_neon(docs=docs)
+                e08_upserted = int(stats.get("rows_upserted", 0))
+                e08_refreshed = e08_upserted > 0
+        except Exception:
+            e08_refreshed = False
+
+    return {
+        "ticker": sym,
+        "count": len(articles),
+        "articles": articles,
+        "e08_refreshed": e08_refreshed,
+        "e08_upserted": e08_upserted,
+    }
+
+
 def execute_trade_endpoint(
     ticker: str,
     side: str = "BUY",
@@ -682,7 +769,7 @@ def execute_trade_endpoint(
 
 
 try:
-    from fastapi import FastAPI, HTTPException
+    from fastapi import FastAPI, Header, HTTPException
     from fastapi.middleware.cors import CORSMiddleware
     from pydantic import BaseModel
 
@@ -705,6 +792,10 @@ try:
         filings: str = "none"
         max_retries: int = 0
         use_live_angel: bool = True
+        llm_endpoint_url: Optional[str] = None
+
+    class LLMEndpointConfigRequest(BaseModel):
+        endpoint_url: str
 
     class PortfolioGenerateRequest(BaseModel):
         capital_inr: float = 500000.0
@@ -732,6 +823,21 @@ try:
     def api_health():
         return {"status": "ok", "engine": "Q-ARC Neuro-Symbolic BCP v2"}
 
+    @app.post("/api/config/llm_endpoint")
+    def api_config_llm_endpoint(
+        req: LLMEndpointConfigRequest,
+        x_qarc_admin_secret: Optional[str] = Header(default=None, alias="X-QARC-Admin-Secret"),
+    ):
+        try:
+            return set_runtime_llm_endpoint(
+                req.endpoint_url,
+                admin_secret=x_qarc_admin_secret,
+            )
+        except PermissionError as exc:
+            raise HTTPException(status_code=401, detail=str(exc))
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc))
+
     @app.post("/api/bcp_analyze")
     def api_bcp_analyze(req: BCPAnalyzeRequest):
         try:
@@ -740,9 +846,27 @@ try:
                 filings=req.filings,
                 max_retries=req.max_retries,
                 use_live_angel=req.use_live_angel,
+                llm_endpoint_url=req.llm_endpoint_url,
             )
         except FileNotFoundError as exc:
             raise HTTPException(status_code=404, detail=str(exc))
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc))
+
+    @app.get("/api/news/{ticker}")
+    def api_ticker_news(
+        ticker: str,
+        days_back: int = 3,
+        limit: int = 5,
+        refresh_e08: bool = True,
+    ):
+        try:
+            return get_ticker_news_endpoint(
+                ticker=ticker,
+                days_back=days_back,
+                limit=limit,
+                refresh_e08=refresh_e08,
+            )
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc))
 

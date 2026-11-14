@@ -12,6 +12,7 @@ import os
 import json
 import re
 from typing import Dict, Any, Optional, List
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -91,6 +92,26 @@ class QArcModelClient:
         upper = text.upper()
         return any(tok in upper for tok in ["DOWNTREND", "DISTRIBUTION", "MARKDOWN"])
 
+    def _is_endpoint_reachable(self, timeout: float = 3.5) -> bool:
+        """Fast pre-flight probe (3.5s max) before importing/invoking OpenAI SDK."""
+        base = str(self.endpoint_url or "").strip().rstrip("/")
+        if not base or "xxxx" in base:
+            return False
+        try:
+            resp = requests.get(
+                f"{base}/models",
+                headers={
+                    "Authorization": f"Bearer {self.api_key}",
+                    "ngrok-skip-browser-warning": "true",
+                },
+                timeout=timeout,
+            )
+            if resp.status_code >= 500 or "ERR_NGROK" in (resp.text or ""):
+                return False
+            return True
+        except Exception:
+            return False
+
     def generate_bcp_profile(
         self,
         evidence_ledger_text: str,
@@ -119,10 +140,13 @@ class QArcModelClient:
                 "`counter_strategy` MUST specify capital preservation, short/hedge, or wait-for-base.\n"
             )
 
-        # Detect placeholder
+        # Detect placeholder or unreachable Colab/vLLM endpoint within <=3.5s
         if "xxxx" in self.endpoint_url or not self.endpoint_url.strip():
             print(f"  • [Q-ARC CLIENT] Notice: Endpoint is currently set to placeholder '{self.endpoint_url}'.")
             print("  • [Q-ARC CLIENT] Paste your live Colab ngrok URL into .env (e.g. QARC_MODEL_ENDPOINT=https://abc.ngrok-free.app/v1).")
+            return self._heuristic_baseline(evidence_ledger_text)
+        if not self._is_endpoint_reachable(timeout=3.5):
+            print(f"  • [Q-ARC CLIENT WARNING] Endpoint offline/unreachable ({self.endpoint_url}). Using cognitive fallback.")
             return self._heuristic_baseline(evidence_ledger_text)
 
         messages: List[Dict[str, str]] = [{"role": "system", "content": sys_prompt}]
@@ -148,7 +172,7 @@ class QArcModelClient:
         try:
             print(f"  • [Q-ARC CLIENT] Querying fine-tuned Nemotron 70B at: {self.endpoint_url}...")
             from openai import OpenAI
-            client = OpenAI(base_url=self.endpoint_url, api_key=self.api_key, timeout=30.0)
+            client = OpenAI(base_url=self.endpoint_url, api_key=self.api_key, timeout=25.0, max_retries=0)
 
             kwargs: Dict[str, Any] = {
                 "model": "qarc_nemotron_70b",
@@ -180,7 +204,7 @@ class QArcModelClient:
         Closed-Loop Reflexion Retry (1 retry max): feeds exact ClaimVerifier contradiction
         diagnostics back to the model and asks it to rewrite ONLY the contradicted keys.
         """
-        if "xxxx" in self.endpoint_url or not self.endpoint_url.strip():
+        if not self._is_endpoint_reachable(timeout=3.5):
             return self._heuristic_baseline(evidence_ledger_text)
 
         sys_prompt = system_prompt_override or SYSTEM_PROMPT
@@ -196,7 +220,7 @@ class QArcModelClient:
 
         try:
             from openai import OpenAI
-            client = OpenAI(base_url=self.endpoint_url, api_key=self.api_key, timeout=30.0)
+            client = OpenAI(base_url=self.endpoint_url, api_key=self.api_key, timeout=3.5, max_retries=0)
             response = client.chat.completions.create(
                 model="qarc_nemotron_70b",
                 messages=[
