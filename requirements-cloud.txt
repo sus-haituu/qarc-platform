@@ -1,0 +1,32 @@
+# Q-ARC Cloud API / Container Dependencies (CPU-only)
+# Excludes GPU/training/notebook packages (torch, unsloth, transformers, jupyter)
+# Note: quant_engines.py uses scipy.optimize.minimize for GARCH(1,1) MLE and hmmlearn for GaussianHMM (arch is not imported).
+
+# Web API & Validation
+fastapi>=0.115.0
+uvicorn>=0.30.0
+pydantic>=2.0.0
+
+# Core Numerical & Quantitative Engines
+numpy>=1.26.0
+pandas>=2.2.0
+scipy>=1.11.0
+scikit-learn>=1.4.0
+hmmlearn>=0.3.2
+
+# Neon Postgres + pgvector
+psycopg2-binary>=2.9.9
+pgvector>=0.3.0
+
+# Angel One SmartAPI Live Broker & Market Feed
+smartapi-python>=1.5.5
+pyotp>=2.9.0
+logzero>=1.7.0
+websocket-client>=1.6.0
+
+# Pipeline Utilities, Environment & Cognitive Client
+python-dotenv>=1.0.0
+requests>=2.31.0
+openai>=1.0.0
+tqdm>=4.66.0
+feedparser>=6.0.10

@@ -1,0 +1,3168 @@
+[
+  {
+    "ticker": "COALINDIA",
+    "date": "2026-09-02",
+    "stratified_bucket": "Markup",
+    "trial_index": 1,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0001,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Momentum trader | Seller: Short-term trader",
+      "dominant_intent": "Entering on strength as the stock is in a markup phase and showing strong momentum.",
+      "time_horizon": "7-12 days",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Momentum trader)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Step-Aside / Await Clear Imbalance"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Momentum trader | Seller: Short-term trader",
+      "dominant_intent": "Entering on strength as the stock is in a markup phase and showing strong momentum.",
+      "time_horizon": "7-12 days",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Momentum trader)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Step-Aside / Await Clear Imbalance"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Momentum trader | Seller: Short-term trader",
+        "verified": "Buyer: Momentum trader | Seller: Short-term trader",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Entering on strength as the stock is in a markup phase and showing strong momentum.",
+        "verified": "Entering on strength as the stock is in a markup phase and showing strong momentum.",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "7-12 days",
+        "verified": "7-12 days",
+        "status": "SUPPORTED",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Consistent with delivery volume turnover proxy."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.82)",
+        "verified": "Medium-High (Model Conf: 0.82)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Momentum trader)",
+        "verified": "Positional Transfer (Momentum trader)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Step-Aside / Await Clear Imbalance",
+        "verified": "Step-Aside / Await Clear Imbalance",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 1,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "ADANIENT",
+    "date": "2026-09-09",
+    "stratified_bucket": "Markup",
+    "trial_index": 2,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Institutional Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Investing in a stock with positive news and strong sector performance.",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Institutional Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Step-Aside / Await Clear Imbalance"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Institutional Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Investing in a stock with positive news and strong sector performance.",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Institutional Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Step-Aside / Await Clear Imbalance"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Institutional Investor | Seller: Short-term Speculator",
+        "verified": "UNKNOWN (Unattributed Flow)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Downgraded to UNKNOWN: No regulatory filing (>0.5%) recorded. Available Bhavcopy data cannot establish institutional participation, though sub-threshold algorithmic flow cannot be ruled out."
+      },
+      "dominant_intent": {
+        "raw": "Investing in a stock with positive news and strong sector performance.",
+        "verified": "Investing in a stock with positive news and strong sector performance.",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.82)",
+        "verified": "Medium-High (Model Conf: 0.82)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Institutional Investor)",
+        "verified": "Positional Transfer (Institutional Investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Step-Aside / Await Clear Imbalance",
+        "verified": "Step-Aside / Await Clear Imbalance",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "DLF",
+    "date": "2026-09-09",
+    "stratified_bucket": "Markup",
+    "trial_index": 3,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0003,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term Investors | Seller: Institutional Investors",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the dip as the stock is trading below its VWAP and is considered undervalued.)",
+      "time_horizon": "24-36 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Long-term Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the dip as the stock is trading below )"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term Investors | Seller: Institutional Investors",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "24-36 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Long-term Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term Investors | Seller: Institutional Investors",
+        "verified": "UNKNOWN (Unattributed Flow)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Downgraded to UNKNOWN: No regulatory filing (>0.5%) recorded. Available Bhavcopy data cannot establish institutional participation, though sub-threshold algorithmic flow cannot be ruled out."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the dip as the stock is trading below its VWAP and is considered undervalued.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "24-36 months",
+        "verified": "24-36 months",
+        "status": "SUPPORTED",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Consistent with delivery volume turnover proxy."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term Investors)",
+        "verified": "Positional Transfer (Long-term Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the dip as the stock is trading below )",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "ONGC",
+    "date": "2026-09-14",
+    "stratified_bucket": "Markup",
+    "trial_index": 4,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0001,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given the markup regime and the stock's price being near the lower Bollinger Band.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given the markup regime and the stock's price being near the lower Bollinger Band.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given the markup regime and the stock's price being near the lower Bollinger Band.)",
+        "verified": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given the markup regime and the stock's price being near the lower Bollinger Band.)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)",
+        "verified": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "BEL",
+    "date": "2026-09-15",
+    "stratified_bucket": "Markup",
+    "trial_index": 5,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0003,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given recent price drop.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 3,
+    "raw_llm_contradiction_rate": 42.9,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given recent price drop.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "DABUR",
+    "date": "2026-09-15",
+    "stratified_bucket": "Markup",
+    "trial_index": 6,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0001,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Bullish Demand Absorption (Viewing the stock as undervalued based on fundamentals and market performance.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Viewing the stock as undervalued based on fundam)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Bullish Demand Absorption (Viewing the stock as undervalued based on fundamentals and market performance.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Viewing the stock as undervalued based on fundam)"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+        "verified": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Viewing the stock as undervalued based on fundamentals and market performance.)",
+        "verified": "Bullish Demand Absorption (Viewing the stock as undervalued based on fundamentals and market performance.)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term Investor)",
+        "verified": "Positional Transfer (Long-term Investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Viewing the stock as undervalued based on fundam)",
+        "verified": "Defensive Limit Orders (Max Cap: 22.1%)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E10",
+          "E13"
+        ],
+        "notes": "Capital Sizing Guard Applied: Monte Carlo stop breach probability is 36.6%. Enforced maximum risk capital allocation cap of 22.1%."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "HDFCLIFE",
+    "date": "2026-09-16",
+    "stratified_bucket": "Markup",
+    "trial_index": 7,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value investor | Seller: Short-term trader",
+      "dominant_intent": "Bullish Demand Absorption (Entering on a dip, as indicated by the RSI and the stock's performance relative to the sector.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Entering on a dip, as indicated by the RSI and t)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value investor | Seller: Short-term trader",
+      "dominant_intent": "Short Covering / Counter-Trend Relief Rally",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value investor | Seller: Short-term trader",
+        "verified": "Buyer: Value investor | Seller: Short-term trader",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Entering on a dip, as indicated by the RSI and the stock's performance relative to the sector.)",
+        "verified": "Short Covering / Counter-Trend Relief Rally",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value investor)",
+        "verified": "Positional Transfer (Value investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Entering on a dip, as indicated by the RSI and t)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "BPCL",
+    "date": "2026-09-18",
+    "stratified_bucket": "Markup",
+    "trial_index": 8,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Identifying the stock as undervalued based on the technical indicators and sector performance.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Identifying the stock as undervalued based on th)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Short Covering / Counter-Trend Relief Rally",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Identifying the stock as undervalued based on the technical indicators and sector performance.)",
+        "verified": "Short Covering / Counter-Trend Relief Rally",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Identifying the stock as undervalued based on th)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10",
+          "E03",
+          "E04"
+        ],
+        "notes": "Validated: Matches Empirical Signal 2 (Delivery > 55%, Vol Z > 1.0, above VWAP) with statistically significant +0.66% 5D excess edge (p=0.014)."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "HINDALCO",
+    "date": "2026-09-18",
+    "stratified_bucket": "Markup",
+    "trial_index": 9,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Bullish Demand Absorption (Seeking to accumulate shares at a perceived undervalued price based on technical indicators.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Seeking to accumulate shares at a perceived unde)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+        "verified": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Seeking to accumulate shares at a perceived undervalued price based on technical indicators.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term Investor)",
+        "verified": "Positional Transfer (Long-term Investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Seeking to accumulate shares at a perceived unde)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "POWERGRID",
+    "date": "2026-09-18",
+    "stratified_bucket": "Markup",
+    "trial_index": 10,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0004,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Investing in a stable PSU stock with positive sector performance.",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.78)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Step-Aside / Await Clear Imbalance"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Investing in a stable PSU stock with positive sector performance.",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.78)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Step-Aside / Await Clear Imbalance"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+        "verified": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Investing in a stable PSU stock with positive sector performance.",
+        "verified": "Investing in a stable PSU stock with positive sector performance.",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.78)",
+        "verified": "Medium-High (Model Conf: 0.78)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term Investor)",
+        "verified": "Positional Transfer (Long-term Investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Step-Aside / Await Clear Imbalance",
+        "verified": "Step-Aside / Await Clear Imbalance",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10",
+          "E03",
+          "E04"
+        ],
+        "notes": "Validated: Matches Empirical Signal 2 (Delivery > 55%, Vol Z > 1.0, above VWAP) with statistically significant +0.66% 5D excess edge (p=0.014)."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "HAL",
+    "date": "2026-09-02",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 11,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value investor | Seller: Short-term trader",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued, given the low Bollinger Position and the market regime indicating accumulation.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value investor | Seller: Short-term trader",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value investor | Seller: Short-term trader",
+        "verified": "Buyer: Value investor | Seller: Short-term trader",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued, given the low Bollinger Position and the market regime indicating accumulation.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value investor)",
+        "verified": "Positional Transfer (Value investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "VEDL",
+    "date": "2026-09-22",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 12,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0001,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term investor | Seller: Short-term trader",
+      "dominant_intent": "Bullish Demand Absorption (Accumulating shares during a period of lower volume and potentially undervalued price.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Accumulating shares during a period of lower vol)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term investor | Seller: Short-term trader",
+      "dominant_intent": "Bullish Demand Absorption (Accumulating shares during a period of lower volume and potentially undervalued price.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Accumulating shares during a period of lower vol)"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term investor | Seller: Short-term trader",
+        "verified": "Buyer: Long-term investor | Seller: Short-term trader",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Accumulating shares during a period of lower volume and potentially undervalued price.)",
+        "verified": "Bullish Demand Absorption (Accumulating shares during a period of lower volume and potentially undervalued price.)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term investor)",
+        "verified": "Positional Transfer (Long-term investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Accumulating shares during a period of lower vol)",
+        "verified": "Scale Limit Buy Orders (Accumulating shares during a period of lower vol)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "AXISBANK",
+    "date": "2026-09-23",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 13,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0005,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Bullish Demand Absorption (Viewing the stock as undervalued based on technical indicators and market regime.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Viewing the stock as undervalued based on techni)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+      "dominant_intent": "Bullish Demand Absorption (Viewing the stock as undervalued based on technical indicators and market regime.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Viewing the stock as undervalued based on techni)"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+        "verified": "Buyer: Long-term Investor | Seller: Short-term Speculator",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Viewing the stock as undervalued based on technical indicators and market regime.)",
+        "verified": "Bullish Demand Absorption (Viewing the stock as undervalued based on technical indicators and market regime.)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term Investor)",
+        "verified": "Positional Transfer (Long-term Investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Viewing the stock as undervalued based on techni)",
+        "verified": "Defensive Limit Orders (Max Cap: 21.1%)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E10",
+          "E13"
+        ],
+        "notes": "Capital Sizing Guard Applied: Monte Carlo stop breach probability is 41.1%. Enforced maximum risk capital allocation cap of 21.1%."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "INFY",
+    "date": "2026-09-24",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 14,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0001,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying as the stock appears oversold based on RSI and Bollinger Bands, and the market regime suggests accumulation.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying as the stock appears oversold based on RS)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying as the stock appears oversold based on RSI and Bollinger Bands, and the market regime suggests accumulation.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying as the stock appears oversold based on RS)"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying as the stock appears oversold based on RSI and Bollinger Bands, and the market regime suggests accumulation.)",
+        "verified": "Bullish Demand Absorption (Buying as the stock appears oversold based on RSI and Bollinger Bands, and the market regime suggests accumulation.)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.82)",
+        "verified": "Medium-High (Model Conf: 0.82)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying as the stock appears oversold based on RS)",
+        "verified": "Defensive Limit Orders (Max Cap: 17.4%)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E10",
+          "E13"
+        ],
+        "notes": "Capital Sizing Guard Applied: Monte Carlo stop breach probability is 45.3%. Enforced maximum risk capital allocation cap of 17.4%."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "BANKBARODA",
+    "date": "2026-09-25",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 15,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term investor | Seller: Short-term trader",
+      "dominant_intent": "Bullish Demand Absorption (Accumulating shares in a stock with a relatively low RSI and below average volume, suggesting a potential undervalued position.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Accumulating shares in a stock with a relatively)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term investor | Seller: Short-term trader",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term investor | Seller: Short-term trader",
+        "verified": "Buyer: Long-term investor | Seller: Short-term trader",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Accumulating shares in a stock with a relatively low RSI and below average volume, suggesting a potential undervalued position.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term investor)",
+        "verified": "Positional Transfer (Long-term investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Accumulating shares in a stock with a relatively)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "DRREDDY",
+    "date": "2026-09-25",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 16,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Trader",
+      "dominant_intent": "Bullish Demand Absorption (Accumulating shares during a period of consolidation and relative underperformance.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.78)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Accumulating shares during a period of consolida)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term Investor | Seller: Short-term Trader",
+      "dominant_intent": "Bullish Demand Absorption (Accumulating shares during a period of consolidation and relative underperformance.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.78)",
+      "inventory_impact": "Positional Transfer (Long-term Investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Accumulating shares during a period of consolida)"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term Investor | Seller: Short-term Trader",
+        "verified": "Buyer: Long-term Investor | Seller: Short-term Trader",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Accumulating shares during a period of consolidation and relative underperformance.)",
+        "verified": "Bullish Demand Absorption (Accumulating shares during a period of consolidation and relative underperformance.)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.78)",
+        "verified": "Medium-High (Model Conf: 0.78)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term Investor)",
+        "verified": "Positional Transfer (Long-term Investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Accumulating shares during a period of consolida)",
+        "verified": "Defensive Limit Orders (Max Cap: 20.7%)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E10",
+          "E13"
+        ],
+        "notes": "Capital Sizing Guard Applied: Monte Carlo stop breach probability is 41.8%. Enforced maximum risk capital allocation cap of 20.7%."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "ADANIENT",
+    "date": "2026-09-28",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 17,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term Investors | Seller: Retail Investors",
+      "dominant_intent": "Bullish Demand Absorption (Buying on dip, seeing value in the stock despite short-term volatility.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on dip, seeing value in the stock despite)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term Investors | Seller: Retail Investors",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 3,
+    "raw_llm_contradiction_rate": 42.9,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term Investors | Seller: Retail Investors",
+        "verified": "Buyer: Long-term Investors | Seller: Retail Investors",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on dip, seeing value in the stock despite short-term volatility.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term Investors)",
+        "verified": "Positional Transfer (Long-term Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on dip, seeing value in the stock despite)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "ADANIPORTS",
+    "date": "2026-09-28",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 18,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Institutional Investors | Seller: Retail Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying during accumulation phase with delivery percentage indicating strong conviction.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Institutional Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying during accumulation phase with delivery p)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Institutional Investors | Seller: Retail Traders",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Institutional Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Institutional Investors | Seller: Retail Traders",
+        "verified": "UNKNOWN (Unattributed Flow)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Downgraded to UNKNOWN: No regulatory filing (>0.5%) recorded. Available Bhavcopy data cannot establish institutional participation, though sub-threshold algorithmic flow cannot be ruled out."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying during accumulation phase with delivery percentage indicating strong conviction.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Institutional Investors)",
+        "verified": "Positional Transfer (Institutional Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying during accumulation phase with delivery p)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "HDFCBANK",
+    "date": "2026-09-28",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 19,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term Investors | Seller: Short-term Speculators",
+      "dominant_intent": "Bullish Demand Absorption (Buying on dip with positive outlook based on upcoming results.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on dip with positive outlook based on upc)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term Investors | Seller: Short-term Speculators",
+      "dominant_intent": "Profit Taking Pullback",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Long-term Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Step-Aside / Await Clear Order Flow Imbalance"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term Investors | Seller: Short-term Speculators",
+        "verified": "Buyer: Long-term Investors | Seller: Short-term Speculators",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on dip with positive outlook based on upcoming results.)",
+        "verified": "Profit Taking Pullback",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term Investors)",
+        "verified": "Positional Transfer (Long-term Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on dip with positive outlook based on upc)",
+        "verified": "Step-Aside / Await Clear Order Flow Imbalance",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "SIEMENS",
+    "date": "2026-09-30",
+    "stratified_bucket": "Accumulation",
+    "trial_index": 20,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0006,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Long-term investor | Seller: Short-term trader",
+      "dominant_intent": "Bullish Demand Absorption (Accumulating shares during a period of low volatility and potentially undervalued conditions.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Long-term investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Accumulating shares during a period of low volat)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Long-term investor | Seller: Short-term trader",
+      "dominant_intent": "Bullish Demand Absorption (Accumulating shares during a period of low volatility and potentially undervalued conditions.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Long-term investor)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Accumulating shares during a period of low volat)"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Long-term investor | Seller: Short-term trader",
+        "verified": "Buyer: Long-term investor | Seller: Short-term trader",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Accumulating shares during a period of low volatility and potentially undervalued conditions.)",
+        "verified": "Bullish Demand Absorption (Accumulating shares during a period of low volatility and potentially undervalued conditions.)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Long-term investor)",
+        "verified": "Positional Transfer (Long-term investor)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Accumulating shares during a period of low volat)",
+        "verified": "Defensive Limit Orders (Max Cap: 17.6%)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E10",
+          "E13"
+        ],
+        "notes": "Capital Sizing Guard Applied: Monte Carlo stop breach probability is 45.0%. Enforced maximum risk capital allocation cap of 17.6%."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "ADANIENT",
+    "date": "2026-08-31",
+    "stratified_bucket": "Markdown",
+    "trial_index": 21,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0001,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Institutional Investors",
+      "dominant_intent": "Bullish Demand Absorption (Buying on perceived undervaluation and high delivery percentage indicating potential long-term hold.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on perceived undervaluation and high deli)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Institutional Investors",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Institutional Investors",
+        "verified": "UNKNOWN (Unattributed Flow)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Downgraded to UNKNOWN: No regulatory filing (>0.5%) recorded. Available Bhavcopy data cannot establish institutional participation, though sub-threshold algorithmic flow cannot be ruled out."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on perceived undervaluation and high delivery percentage indicating potential long-term hold.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on perceived undervaluation and high deli)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "NESTLEIND",
+    "date": "2026-09-01",
+    "stratified_bucket": "Markdown",
+    "trial_index": 22,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the dip as the stock appears oversold based on RSI and Bollinger Bands.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the dip as the stock appears oversold )"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the dip as the stock appears oversold based on RSI and Bollinger Bands.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the dip as the stock appears oversold )",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "AXISBANK",
+    "date": "2026-09-24",
+    "stratified_bucket": "Markdown",
+    "trial_index": 23,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Institutional Investors",
+      "dominant_intent": "Bullish Demand Absorption (Buying on a perceived undervaluation with RSI in oversold territory and significant volume.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on a perceived undervaluation with RSI in)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Institutional Investors",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Institutional Investors",
+        "verified": "UNKNOWN (Unattributed Flow)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Downgraded to UNKNOWN: No regulatory filing (>0.5%) recorded. Available Bhavcopy data cannot establish institutional participation, though sub-threshold algorithmic flow cannot be ruled out."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on a perceived undervaluation with RSI in oversold territory and significant volume.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.82)",
+        "verified": "Medium-High (Model Conf: 0.82)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on a perceived undervaluation with RSI in)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "HDFCLIFE",
+    "date": "2026-09-24",
+    "stratified_bucket": "Markdown",
+    "trial_index": 24,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Contrarian Investors | Seller: Institutional Investors",
+      "dominant_intent": "Bullish Demand Absorption (Buying on dip due to oversold conditions and potential for regulatory clarity.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Contrarian Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on dip due to oversold conditions and pot)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Contrarian Investors | Seller: Institutional Investors",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Contrarian Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Contrarian Investors | Seller: Institutional Investors",
+        "verified": "UNKNOWN (Unattributed Flow)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Downgraded to UNKNOWN: No regulatory filing (>0.5%) recorded. Available Bhavcopy data cannot establish institutional participation, though sub-threshold algorithmic flow cannot be ruled out."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on dip due to oversold conditions and potential for regulatory clarity.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.82)",
+        "verified": "Medium-High (Model Conf: 0.82)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Contrarian Investors)",
+        "verified": "Positional Transfer (Contrarian Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on dip due to oversold conditions and pot)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "TATACONSUM",
+    "date": "2026-09-25",
+    "stratified_bucket": "Markdown",
+    "trial_index": 25,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0006,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the dip as the stock is trading below its VWAP and RSI indicates oversold conditions.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the dip as the stock is trading below )"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the dip as the stock is trading below its VWAP and RSI indicates oversold conditions.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.82)",
+        "verified": "Medium-High (Model Conf: 0.82)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the dip as the stock is trading below )",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "APOLLOHOSP",
+    "date": "2026-09-30",
+    "stratified_bucket": "Markdown",
+    "trial_index": 26,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Institutional Investors",
+      "dominant_intent": "Bullish Demand Absorption (Buying on significant price drop and high delivery percentage suggesting accumulation.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on significant price drop and high delive)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Institutional Investors",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 3,
+    "raw_llm_contradiction_rate": 42.9,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Institutional Investors",
+        "verified": "UNKNOWN (Unattributed Flow)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Downgraded to UNKNOWN: No regulatory filing (>0.5%) recorded. Available Bhavcopy data cannot establish institutional participation, though sub-threshold algorithmic flow cannot be ruled out."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on significant price drop and high delivery percentage suggesting accumulation.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.82)",
+        "verified": "Medium-High (Model Conf: 0.82)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on significant price drop and high delive)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "HEROMOTOCO",
+    "date": "2026-09-30",
+    "stratified_bucket": "Markdown",
+    "trial_index": 27,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0001,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying as the stock is below its VWAP and RSI suggests it is neither overbought nor oversold.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying as the stock is below its VWAP and RSI su)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying as the stock is below its VWAP and RSI suggests it is neither overbought nor oversold.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.72)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying as the stock is below its VWAP and RSI su)"
+    },
+    "guardrail_intervened": false,
+    "raw_contradictions_count": 0,
+    "raw_llm_contradiction_rate": 0.0,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying as the stock is below its VWAP and RSI suggests it is neither overbought nor oversold.)",
+        "verified": "Bullish Demand Absorption (Buying as the stock is below its VWAP and RSI suggests it is neither overbought nor oversold.)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.72)",
+        "verified": "Medium-High (Model Conf: 0.72)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying as the stock is below its VWAP and RSI su)",
+        "verified": "Defensive Limit Orders (Max Cap: 17.2%)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E10",
+          "E13"
+        ],
+        "notes": "Capital Sizing Guard Applied: Monte Carlo stop breach probability is 53.7%. Enforced maximum risk capital allocation cap of 17.2%."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 3,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "SUNPHARMA",
+    "date": "2026-09-30",
+    "stratified_bucket": "Markdown",
+    "trial_index": 28,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the dip as the price falls below the VWAP and RSI indicates oversold conditions.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the dip as the price falls below the V)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 3,
+    "raw_llm_contradiction_rate": 42.9,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the dip as the price falls below the VWAP and RSI indicates oversold conditions.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the dip as the price falls below the V)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "EICHERMOT",
+    "date": "2026-10-02",
+    "stratified_bucket": "Markdown",
+    "trial_index": 29,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given the oversold technical indicators and significant delivery percentage.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.82)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given the oversold technical indicators and significant delivery percentage.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.82)",
+        "verified": "Medium-High (Model Conf: 0.82)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  },
+  {
+    "ticker": "MARUTI",
+    "date": "2026-10-02",
+    "stratified_bucket": "Markdown",
+    "trial_index": 30,
+    "inference_mode": "cached_historical_llm_completions_test_csv",
+    "latency_seconds": 0.0002,
+    "raw_model_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given the oversold technical indicators and high delivery percentage suggesting a shift in long-term ownership.)",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)"
+    },
+    "post_guardrail_response": {
+      "counterparty_type": "Buyer: Value Investors | Seller: Momentum Traders",
+      "dominant_intent": "Passive Institutional Distribution",
+      "time_horizon": "12-24 months",
+      "execution_urgency": "Medium-High (Model Conf: 0.75)",
+      "inventory_impact": "Positional Transfer (Value Investors)",
+      "deception_risk": "UNVERIFIABLE (No L2/L3 Feed)",
+      "counter_strategy": "Defensive Capital Preservation / Wait for Base"
+    },
+    "guardrail_intervened": true,
+    "raw_contradictions_count": 2,
+    "raw_llm_contradiction_rate": 28.6,
+    "post_guardrail_contradiction_rate": 0.0,
+    "verified_fields": {
+      "counterparty_type": {
+        "raw": "Buyer: Value Investors | Seller: Momentum Traders",
+        "verified": "Buyer: Value Investors | Seller: Momentum Traders",
+        "status": "SUPPORTED",
+        "cites": [
+          "E08"
+        ],
+        "notes": "Prudent abstention confirmed."
+      },
+      "dominant_intent": {
+        "raw": "Bullish Demand Absorption (Buying on the belief that the stock is undervalued given the oversold technical indicators and high delivery percentage suggesting a shift in long-term ownership.)",
+        "verified": "Passive Institutional Distribution",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06"
+        ],
+        "notes": "Consistent with directional return, VWAP deviation, and HMM regime."
+      },
+      "time_horizon": {
+        "raw": "12-24 months",
+        "verified": "Positional (Delivery Proxy)",
+        "status": "DOWNGRADED_TO_UNKNOWN",
+        "cites": [
+          "E03"
+        ],
+        "notes": "Downgraded multi-year claim; single-day Bhavcopy lacks longitudinal holding data."
+      },
+      "execution_urgency": {
+        "raw": "Medium-High (Model Conf: 0.75)",
+        "verified": "Medium-High (Model Conf: 0.75)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E02",
+          "E04"
+        ],
+        "notes": "Correlated with VWAP displacement and volume anomaly."
+      },
+      "inventory_impact": {
+        "raw": "Positional Transfer (Value Investors)",
+        "verified": "Positional Transfer (Value Investors)",
+        "status": "SUPPORTED",
+        "cites": [
+          "E04",
+          "E05"
+        ],
+        "notes": "Validated against Amihud illiquidity friction."
+      },
+      "deception_risk": {
+        "raw": "UNVERIFIABLE (No L2/L3 Feed)",
+        "verified": "UNVERIFIABLE (No L2/L3 Feed)",
+        "status": "UNVERIFIABLE",
+        "cites": [
+          "E09"
+        ],
+        "notes": "Order book depth missing; iceberg and spoofing detection requires tick queue data."
+      },
+      "counter_strategy": {
+        "raw": "Scale Limit Buy Orders (Buying on the belief that the stock is undervalu)",
+        "verified": "Defensive Capital Preservation / Wait for Base",
+        "status": "SUPPORTED",
+        "cites": [
+          "E01",
+          "E02",
+          "E06",
+          "E13",
+          "E10"
+        ],
+        "notes": "Executable rule aligned with verified market pressure and Monte Carlo risk framing."
+      }
+    },
+    "contradictions_count": 0,
+    "unsupported_count": 2,
+    "verification_status": "PASS WITH WARNINGS"
+  }
+]

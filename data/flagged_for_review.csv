@@ -1,0 +1,327 @@
+ticker,date,price_change_pct,volume,volume_vs_30d_avg,delivery_pct,bulk_block_deals,rsi_14,macd,macd_signal,atr_14,bollinger_position,obv,obv_trend,vwap_deviation_pct,volume_zscore,nifty_change_pct,beta_vs_nifty,sector_relative_performance_pct,headline,output,flag_reason
+ADANIENT,2026-04-20,0.5093990893927591,1795338,0.7326518065968581,29.34,none,94.06589292399848,62.88988779066517,21.924700649428942,93.9571428571429,0.8953171471161551,9308492.0,13751835.0,6.147453488291722,-0.354913242548512,-0.2392431217602575,1.7380266387817611,0.7699722671284137,,Primary,Missing Primary Seller Archetype: in output
+ADANIENT,2026-06-19,0.8296276631047927,3620222,1.330990476219655,57.15,none,62.58291065158019,97.75402040897325,114.02714043430396,78.52857142857147,0.948696070191008,63608203.0,9495241.0,2.1959717924788213,0.4605713190361535,-0.3723035368836114,1.5793665382765425,1.2252540135282075,"Concurrent Gainers: LIC of India, Adani Enterprises among 15 stocks that gained for 5 straight trading sessions - The Economic Times | Kanungo Financiers Target Share Price, Kanungo Financiers Share Price Forecast - The Economic Times","Primary Seller Archetype: Institutional Momentum Trader
+Seller Motivation: Profit-taking on a stock that has outperformed the broader Nifty 50 while exhibiting overbought RSI and Bollinger Band position near the upper band.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Positional Value Investor
+Buyer Motivation: Accumulating a fundamentally strong Adani sector stock with high delivery percentage and sector outperformance, viewing the pullback as a buying opportunity.
+Confidence Score: 0.65",Missing Buyer Time Horizon: in output
+APOLLOHOSP,2026-04-24,-0.6233131988176321,407458,0.9136315774053148,58.06,none,68.42644797539722,71.7485959913638,41.40553957130834,160.35714285714286,0.8384353304892165,4691436.0,-24522.0,1.154611879845882,-0.274147059759498,-0.9753068381063712,0.609875478673134,0.6411256888245176,,Primary,Missing Primary Seller Archetype: in output
+APOLLOHOSP,2026-05-06,-0.1479670612455019,437084,1.0664799262147482,80.92,none,60.892388451443566,65.21349664002446,63.14358164972675,140.71428571428572,0.7280049944263491,4059686.0,-735098.0,0.4270371634371444,0.2107434699698876,1.2596401028277748,0.5739488270487952,-1.6812224042963653,"Top gainers and losers, May 8: Titan up 4.8%, Apollo Hospitals surges 3.4%; State Bank India down 6.7% - Upstox",Primaryellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsells deep everyellsells S mass deepellsellsells overtellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells in mass deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells thisellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells in theellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deep fromellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deep and deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsells,Missing Primary Seller Archetype: in output
+APOLLOHOSP,2026-05-14,1.430445374476852,431011,1.0984340875240186,53.55,none,69.8919197117859,132.2141082396029,101.8011650478999,137.57142857142858,0.9771522504316452,4633951.0,719938.0,2.550281903818144,0.316350420671226,0.9983423749246434,0.5612420582513108,-1.894804009276641,,"Primary "" ways三:三 situations , us ways way: the the ( these these four, the, 1.1 The1. 1.  1.  2.  2.  2.  1.  2.   1. 1.   1.  2. 1.   1. 1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.  1.",Missing Primary Seller Archetype: in output
+APOLLOHOSP,2026-05-21,2.8470631924243373,1425124,3.3155860864521043,27.49,none,81.19777158774373,143.76804463211465,123.41218752264038,161.71428571428572,1.0,6323828.0,1858280.0,2.615482135330735,4.422439246903409,0.059690356276798,0.5668621530790121,2.279343391344917,"Earnings Update: Apollo Hospitals Enterprise Limited (NSE:APOLLOHOSP) Just Reported Its Annual Results And Analysts Are Updating Their Forecasts - simplywall.st | Motherson, Apollo Hospitals, Manappuram: Stocks to trade— Check target prices, stop loss - Business Today",Primary,Missing Primary Seller Archetype: in output
+APOLLOHOSP,2026-08-06,0.7239057239057267,399856,1.4341492037964123,65.73,none,57.21223895094706,80.17166204808564,91.28702854072944,146.42857142857142,0.7777701573022752,9748175.0,392102.0,0.6017910292893515,1.0140379410778242,0.2250321474496441,0.1055472038216143,0.3942263630173381,,"Primary Seller Archetype: ... 
+But I need to output exactly the format. I'll generate the full response now.</think>Primary Seller Archetype: 理性退休型（Retireland",Missing Seller Motivation: in output
+AXISBANK,2026-04-27,-3.052932132659792,10768267,1.3133175673273525,57.42,none,65.79957356076764,27.333456565763758,24.4193384652647,37.01428571428572,0.5507124565374597,43403145.0,-10203565.0,-2.125378140207652,0.7150687217048064,0.5275000922202899,1.3424393619707942,-3.953285873539652,"Banking stocks in focus: Axis Bank falls over 4%, IndusInd Bank shares jump 6.1% after Q4 earnings - Upstox | Q4 impact: IndusInd Bank shares jump 6%; RBL, Axis Bank tank 5% each - Here’s why | Target prices - Business Today",Primary,Missing Primary Seller Archetype: in output
+AXISBANK,2026-05-22,2.561238330806681,5016900,0.695612137132376,63.34,none,53.18491032776753,-11.488070394946137,-11.051870648298998,26.91428571428571,0.6798974059656772,18778958.0,1839383.0,2.511635823434802,-0.6788400051973447,0.3318295365571932,1.332664022333652,1.3745699839542695,India stocks higher at close of trade; Nifty 50 up 0.27% - Investing.com | Stock markets rebound in early trade - The New Indian Express,Primary S,Missing Primary Seller Archetype: in output
+AXISBANK,2026-06-12,2.9606012297882067,8535670,1.1594791889754368,69.37,none,62.05237840726879,8.998562796743272,0.5063394741639509,28.48571428571433,1.0,34706950.0,24684343.0,5.501208060559778,0.4632328866594485,1.991394737844132,1.2527595795118256,0.3145703316666046,"Trade Spotlight: How should you trade Concord Biotech, Jindal Steel, Axis Bank, Aegis Logistics, Raymond,... - Moneycontrol.com | Trade Spotlight: How should you trade Gland Pharma, Dr Lal PathLabs, Himadri Speciality Chemical, Axis... - Moneycontrol.com",Primary,Missing Primary Seller Archetype: in output
+BAJAJ-AUTO,2026-06-10,-0.392772977219169,293698,0.6368480584097223,59.21,none,30.828445747800583,35.88967987056458,109.22593912148774,234.1071428571429,0.1596185778091186,6094245.0,-2111738.0,-2.299623808737727,-0.5274264960799679,-0.3031681067151792,0.9534871563464896,-0.0422445415393735,"Bajaj Auto Ltd down for fifth straight session - Business Standard | Bajaj Auto wins GST appeal, tax demand of Rs 3.51 crore set aside - scanx.trade",Primary,Missing Primary Seller Archetype: in output
+BAJAJ-AUTO,2026-07-01,1.2968299711815456,200437,0.5100922271951464,35.02,none,40.340909090909086,-124.3745675980299,-89.39936186494111,212.3571428571429,0.2832721698250437,5020407.0,-194649.0,-0.971622023740638,-1.1798961796599718,0.3862850415716323,0.5734323594947647,-0.1126961166861129,"Bajaj Auto share buyback to open on July 1: Should you participate in the ₹5,633 crore offer? - livemint.com | Bajaj Auto Shares Decline Even as June Sales Rise 28%. What's Dragging the Stock? - NDTV Profit",Primary,Missing Primary Seller Archetype: in output
+BAJAJ-AUTO,2026-07-21,-1.1309099548586388,834319,2.006917932083704,46.97,none,70.190578928443,96.11001554896028,40.15169647154847,211.8571428571429,0.8021054182948296,7142808.0,1405927.0,0.8724844614443034,1.8739107691816903,-0.1632919660352616,0.5354621439963975,-1.8160691518915817,"Bajaj Auto shares gain 6%, TVS Motor up 3% after strong Q1 results, brokerages positive - BusinessLine | Bajaj Auto stock jumps 4% to top Nifty gainer as Street cheers Q1 margin beat, export outlook - Moneycontrol.com",Primaryellsellsellsellsellsellsells deepellsellsellsellsellsellsellsells deepellsells deep where whereellsellsells deepellsellsells deepellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells alongellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsells deep from,Missing Primary Seller Archetype: in output
+BPCL,2026-04-29,-1.2510154346060176,16918034,1.1141088888731474,64.83,none,55.30364372469632,0.7227811070990242,-1.1691306786927853,9.157142857142864,0.5584230375091426,-59098649.0,-31430967.0,-2.1543043757750757,0.3277146493841832,0.6077795786061602,1.4213131030239503,-1.789602778282919,"BPCL, HPCL, IOC shares dip but soaring oil prices fail to weigh on ONGC shares. Here's why - livemint.com | IGL: Major ₹78.98 Cr Block Trade Amid BPCL's No Encumbrance Declaration - scanx.trade",Primary S,Missing Primary Seller Archetype: in output
+BPCL,2026-07-09,1.5318728380826707,5543009,0.6323594374946624,45.93,none,51.40597539543055,1.882558793297392,2.218045906550854,8.378571428571442,0.4594684898671627,-137293424.0,-1945292.0,0.4512454510903254,-0.6736699052562541,0.3938312046817938,2.0036558603120787,1.5593067269222105,"IOC, BPCL, HPCL Shares Drop 4% As Crude Oil Price Climbs 3% To $76 Per Barrel As US Strikes Iran - NDTV Profit | IndiGo tumbles 5%, HPCL falls nearly 5%; BPCL, SpiceJet, Asian Paints decline as Brent tops $79 - Moneycontrol.com",Primary,Missing Primary Seller Archetype: in output
+BPCL,2026-07-10,0.5029201817001949,3799709,0.4742130622997573,53.05,none,51.01860053144373,1.918702294499326,2.1581771841405484,8.403571428571443,0.5235120270283052,-133493715.0,1854417.0,1.1689955915456562,-1.1945367218926015,0.8468983721953371,1.9719388892748968,-0.1567733067886304,TCS share price falls 2% ahead of Q1 results 2026. Should you buy or sell? - livemint.com,Primaryellsellsellsellsellsellsellsellsells deep fromellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsells Fellsellsellsellsells overt deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deep fromellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deep fromellsellsells deep,Missing Primary Seller Archetype: in output
+BPCL,2026-07-16,0.7751937984496138,7899255,0.981632194567942,39.45,none,52.069917203311874,1.713878223029667,1.825951365362743,7.646428571428577,0.7647374370956164,-132077104.0,-1337703.0,1.4127819664957622,-0.0414043915746112,0.1205875904406905,2.0100895788194197,0.7576252870308239,"HPCL, BPCL, IOC: $10/bbl oil rise may cut Ebitda by ₹77000 cr, says Nomura - Business Standard | Q1 results this week: Infosys, IndiGo, Paytm, Bajaj Auto, Eternal, Meesho, Adani Power and more - Upstox","Primaryellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsells deepellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsells deepellsellsellsellsellsells deep the massellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deep andellsellsellsellsellsellsellsellsellsellellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deep,ellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsells",Missing Primary Seller Archetype: in output
+BPCL,2026-08-05,0.694444444444442,2974415,0.4244922880056044,48.65,none,63.28052190121156,4.5709119561057605,3.5293883990448096,7.635714285714284,0.911837183505764,-115599106.0,2637027.0,2.8342380406723224,-1.3190823615967675,0.4196707198966809,1.9873908835200813,0.7211291055452818,"BPCL Outlook for the Week (August 10, 2026 – August 14, 2026) - Equitypandit | Stocks to buy for short term: BPCL, MRPL, IndiGo among 6 stocks experts recommend for next 1-2 weeks - livemint.com",Primary,Missing Primary Seller Archetype: in output
+BRITANNIA,2026-04-21,2.412280701754388,270416,0.6201379725348337,49.98,none,70.7833047455689,-5.36779321650738,-50.990012258890026,159.57142857142858,1.0,1489760.0,640859.0,3.931793598588023,-0.8579198561950181,0.8793285127720818,0.6718616177932072,-0.7567494948365576,"Q4 result today: Nestle, HCL Tech, Tata Elxsi, among 16 firms on April 21 - business-standard.com",Primary,Missing Primary Seller Archetype: in output
+BRITANNIA,2026-05-18,-0.4716981132075526,374914,0.7231085602132714,68.02,none,33.09309309309309,-79.17527936407168,-40.87956563311262,120.39285714285714,0.166415885535879,-2157999.0,-3212551.0,-3.0598483071242315,-0.2745011910304922,0.1047512158623087,0.7493805230004139,0.1322466346177053,,Primary,Missing Primary Seller Archetype: in output
+BRITANNIA,2026-07-06,1.403606618330544,180876,0.5518518168219063,65.38,none,68.00911854103343,14.484109087087743,-21.879383404169303,91.42857142857144,1.0,-3194262.0,1425611.0,3.929533068836253,-0.5378873224916544,0.5509042803812703,0.8986550992758989,0.8821823852117346,Abbott India Ltd gains for fifth session - Business Standard | IDFC First Bank Ltd up for third straight session - Business Standard,"Primary Seller Archetype: Institutional Trader
+Seller Motivation: Profit-taking after a sustained up-move with RSI entering overbought territory.
+Seller Time Horizon: <7 days
+Primary Buyer Archetype: Positional Trader
+Buyer Motivation: Momentum entry on breakout from Bollinger Band resistance with rising VWAP deviation.
+Buyer Time Horizon: 12-24 months
+Confidence Score:",Could not parse Confidence Score
+BRITANNIA,2026-07-28,1.7457516946791651,340199,1.3590846406205306,48.7,none,65.06469500924214,40.45722858791669,35.13853466514512,97.57142857142856,0.8449662102186718,-3148525.0,817506.0,1.3208244658182355,0.9727594894187552,-0.0219306261193819,0.8828933807859184,2.6502765010429585,"Just Three Days Till Britannia Industries Limited (NSE:BRITANNIA) Will Be Trading Ex-Dividend - simplywall.st | Britannia Industries Ltd soars 1.38%, Gains for third straight session - Business Standard",Primary S,Missing Primary Seller Archetype: in output
+CIPLA,2026-05-07,-0.1539138082673807,1248019,0.619629822163818,63.16,none,78.91480247501185,27.366819130062822,16.41795575633627,29.57857142857149,0.8939384220294416,4252178.0,-3946884.0,3.481280643208396,-0.7949858405694531,-0.2030972328002089,0.4489380728247505,-0.0991142346575757,LIC’s $2 billion contrarian bet: 10 stocks the DII giant bought while the market bled - The Economic Times,Primary,Missing Primary Seller Archetype: in output
+CIPLA,2026-05-14,8.217836697800562,9166941,4.057989172782562,29.71,none,71.73979748389075,28.02204444555264,21.556598874642603,37.22857142857146,1.0,15562812.0,11955172.0,5.739494637352331,3.864945118675261,0.9983423749246434,0.5846726873753249,4.89258731404707,Cipla shares soars 8% as India business delivers double-digit growth; what analysts said - Upstox | Cipla shares jump 5% after Q4 results; records highest-ever yearly revenue - Business Standard,Primary,Missing Primary Seller Archetype: in output
+CIPLA,2026-05-15,-0.3201781861209785,1138894,0.51941195938389,30.24,none,68.63444696723965,33.67158773151937,23.97959664601796,36.7714285714286,1.0,14423918.0,10816278.0,4.958001246509306,-0.5884116883824313,-0.294677160654988,0.5828019489832631,-0.3698507173392151,Cipla shares soars 8% as India business delivers double-digit growth; what analysts said - Upstox | Cipla Q4 Profit Falls 55% to Rs 555 Crore; EBITDA Margin Halved - NiftyTrader,"Primaryellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsells deepellsellsellsellsellsellsellsellsells deep andellsellsellsellsellsells:ellsellsellsellsellsellsellsellsells deepells overtells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deep massells deep mass andellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsells deepellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells
+ellsellsellsellsellsells deep andellsellsellsellsells",Missing Primary Seller Archetype: in output
+CIPLA,2026-05-27,0.0493827160493953,937447,0.4732512843377732,61.57,none,60.13783097569823,35.4265133642275,34.302768698621946,33.94285714285713,0.7376552489207399,12681701.0,6285830.0,0.2268510745522001,-0.5642871153608064,0.0406158845031923,0.5513520082737682,-0.0301722726769471,,"Primaryellsellsellsells: massellsellsells deepellsellsellsellsellsellsells
+ andells deep fromellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells inellsellsellsellsellsellsellsellsells deep where andellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells",Missing Primary Seller Archetype: in output
+CIPLA,2026-06-18,0.3479419603198197,908719,0.4779075334785976,63.75,none,32.88186606471031,2.2839223426756234,10.319890267107349,25.671428571428574,0.0629678875663974,-1859705.0,-2023272.0,-1.6334782604634193,-0.4414697156035201,0.3148914356852605,0.5236571893165484,-0.0190234228383823,"Cipla promoters declare no shares encumbered in FY26 - scanx.trade | Stock Market Open, June 18, 2026: Sensex Slips 50 points, Nifty Flat at Open as Iran Ceasefire, US Fed Hawkishness Offset Each Other - HDFC Sky",Primaryellsellsellsells whereellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellscape:ellsellsellsellsellsellsells deepellsellsellsellsellsellsells where fromellsellsellsellsellsellsellsellsellsellsellsellsells thisellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells whereellsellsellsellsellsellsells deep fromellsells deep andells deep deep alongellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellscapeellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells,Missing Primary Seller Archetype: in output
+COALINDIA,2026-06-05,-1.9412436416484933,9592529,0.4113841553197293,49.34,none,58.83882149046792,4.0483604581303325,2.6639343110674134,16.260714285714293,0.8076937772388717,176920500.0,89203566.0,2.6588828650969907,-0.4426312072718352,-0.0903614457831381,-0.3147973406640551,-1.1178757034609927,"BPCL, Wipro, ITC among list of 15 high dividend yield stocks. Do you own any? - economictimes.com | Coal India unveils measures to boost coal supply - Business Standard","Primary Seller Archetype: Value Realization Seller
+Seller Motivation: Price declined 1.94% while trading near the upper Bollinger Band (position 0.808), prompting profit-taking from short-term traders who entered on recent strength.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Income-Focused Value Buyer
+Buyer Motivation: Stock offers a dividend yield premium relative to the Nifty decline (-0.09%) and sector weakness (-1.12%), attracting long-term income investors despite the price dip.
+Confidence Score: 0.55",Missing Buyer Time Horizon: in output
+DABUR,2026-05-01,0.0,1448773,0.7092936415676145,37.33,none,60.345892526250765,1.5614674998691953,-0.2518723651987074,12.33571428571428,0.5442702565796238,1678192.0,2035502.0,-2.1179603491113155,-0.5751498228724826,0.0,1.1533951136057317,0.0,"Dabur India Publishes Hindi Notice for Sesa Care Merger Meetings on May 2, 2026 - scanx.trade","Primary Seller Archetype: 清闲观察者
+Seller Motivation: 看着家里存款一点点耗尽，却没法干预孩子的消费欲望，只能默默旁
+Confidence Score: 0.65",Missing Seller Time Horizon: in output
+DABUR,2026-05-05,3.343430943565595,2742900,1.389729435535804,37.95,none,64.91803278688525,2.5581244226717104,0.5845372421439629,12.58928571428571,0.861723367083214,5467808.0,4433761.0,1.6079373318824852,0.7529124002954447,-0.3002343292325737,1.139444085771151,2.378296733615933,"Dabur India shares gain nearly 4% post Q4 earnings; check analysts' views from Jefferies, Morgan Stanley - Upstox | Q4 results today: Britannia, BSE, Biocon, Dabur India, 88 more on May 7 - Business Standard",Primaryellsells inellsellsells deep andellsellsellsellsellsellsellsells deep fromellsellsellsellsellsellsellsellsellsellsellsellsellellsellsellsellsellsellsellsellsellsells,Missing Primary Seller Archetype: in output
+DABUR,2026-05-29,-0.4602087776405916,13072946,5.553294272967991,69.43,none,18.98864809081526,-1.7030730262120528,0.8388462095174356,10.192857142857138,0.2049044476922608,210837.0,-18965936.0,-0.9692630436796216,3.766946067941301,-1.1663098841071862,0.9948368011251734,1.086943744064319,"From fraud tag to hidden gem: The Burman family’s high-stakes bet to unlock an Rs 11,000 crore insurance gem - financialexpress.com","Primaryellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells Sellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsells overtells deep overt deep andellsellsellsellsellsellsellsellsellsell
+Primary",Missing Primary Seller Archetype: in output
+DABUR,2026-06-12,1.1145364002845604,2569834,0.9923067320158948,52.05,none,33.41307814992021,-7.850782729087143,-6.815629519305154,9.628571428571425,0.3129535281388427,870070.0,659233.0,0.3655556515125075,-0.0070889398394474,1.991394737844132,0.9162548184537616,1.0395204970002905,"Stocks to Watch Today: Dabur India, Sagility, GNG Electronics, Lenskart Solutions, Hexagon Nutrition,... - Moneycontrol.com | Dabur shares steady as USFDA issues import alert for Silvassa facility - BusinessLine",Primary,Missing Primary Seller Archetype: in output
+DIVISLAB,2026-06-11,0.256081946222797,228572,0.612597906620352,46.09,none,38.407611417125686,13.561045139244923,36.316321297324336,168.07142857142858,0.375980657421245,1120090.0,290486.0,0.3722755889791243,-0.6493059948747905,-0.1710506309867687,0.3866854972518748,-0.0521927700178626,,Primary Seller Archetype: 0.852181946222797,Missing Seller Motivation: in output
+DIVISLAB,2026-07-21,0.1639792292976283,179558,0.4761621897128091,50.84,none,84.8202396804261,166.92487365571924,111.21080502219118,159.53571428571428,0.8938799786663552,4442691.0,3142559.0,2.744088503957713,-1.026891039545598,-0.1632919660352616,0.4964331620658739,0.4325361621448631,"Three Days Left Until Divi's Laboratories Limited (NSE:DIVISLAB) Trades Ex-Dividend - simplywall.st | Stocks to buy: Divi's Labs and HUL look strong on technical charts, says Akshay Bhagwat - Business Today","Primary Seller Archetype: Momentum Trend Follower
+Seller Motivation: Stock is significantly overbought (RSI 84.82) with Bollinger Band position at 0.89, indicating exhaustion near upper limits despite positive price momentum.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Positional Value Investor
+Buyer Motivation: Delivery percentage of 50.84% suggests substantial institutional or long-term investor participation, viewing the pullback as a buying opportunity given the stock's strong fundamentals and sector outperformance.
+Confidence Score: 0.85",Missing Buyer Time Horizon: in output
+DRREDDY,2026-08-03,2.778503614667716,2150927,0.7873583658585726,51.61,none,31.48769574944069,-39.33009663245525,-36.53795614384398,26.778571428571404,0.3826835537718939,-29917841.0,-13497741.0,1.8808263631591653,-0.255374889336005,0.8831374810756243,0.3265068599709437,1.4703995888939714,"Dr Reddy's Laboratories Shares Fall 2.08% Among Top Losers on Nifty 50 - Moneycontrol.com | Bridion, with $1.6B in U.S. sales, gets a generic drug - Stock Titan","Primary)
+- - - - - - Primary Buyer Archeats
+- --",Missing Primary Seller Archetype: in output
+HCLTECH,2026-06-26,0.0,5877425,1.5782239108739873,46.64,none,35.44303797468359,-22.181310125453138,-20.87415668616144,31.064285714285703,0.1990995404740554,-79451064.0,-8336381.0,-2.3948912461479277,0.7540879179147194,0.0,0.8330341541676701,0.0,"Stocks to Watch Today: HCL Tech, Bharti Airtel, Avience Biomedicals, Delhivery, Pine Labs, NLC India,... - Moneycontrol.com | Where Will HCL Tech Share Price be in the Next 3 Years? - Equitymaster","Primaryellsells: Institutional Investor
+Seller Motivation: Portfolio rebalancing and profit-taking following a period of outperformance and mean reversion signals.
+Seller Time Horizon: 12-24 months
+Primary Buyer Archetype: Value Investor
+Buyer Motivation: Accumulation during a technical pullback to support levels with delivery-based accumulation.
+Buyer Time Horizon: 12-24 months
+Confidence Score: 0.82",Missing Primary Seller Archetype: in output
+HCLTECH,2026-07-10,1.190890125173838,3979475,0.940573294389197,43.47,none,55.72987721691676,-3.785077349574749,-14.214062330729815,38.60714285714288,0.7789497537037253,-60030578.0,19420486.0,3.7244835591549754,-0.0955537909076488,0.8468983721953371,1.160811698654714,-0.2771556127461538,"TCS, Infosys, HCLTech rise up to 4%: Why are IT stocks rising today? - India Today | HCL Tech Q1FY27 results: Revenue and net profit likely to remain flat; check key technical levels - Upstox","Primary Seller Arche: Institutional Investor
+Seller: Institutional Investor
+Seller Motivation: Technical breakout target with elevated delivery
+ Seller Time Horizon: 1-3 months
+ Confidence Score: 0.54",Missing Primary Seller Archetype: in output
+HEROMOTOCO,2026-04-27,1.6426483926232027,448144,0.7584036018011036,49.79,none,49.70059880239521,-61.3463475202343,-47.831972702610805,163.82142857142858,0.2634790237521717,-154350.0,-384511.0,-2.857099427106274,-0.7427650638517119,0.5275000922202899,1.350002784145813,0.2707494743691985,,"Primary Seller Archetype: <archetype name>
+Seller Motivation: <one sentence>
+Seller Time Horizon: <e.g. ""<7 days or ""12-24 months"">
+Primary Buyer Archetype: <archetype name>
+Buyer Motivation: <one sentence>
+Buyer Time Horizon: <e.g. ""<7 days"" or ""12-24 months"">
+Confidence Score: <float 0.0-1.0>
+
+The user wants me to format the response exactly as specified, with no extra text, markdown, or explanation.
+
+Let me analyze the data provided:
+
+Stock Ticker: HEROMOTOCO
+Date: 2026-04-27 00:00:00
+Price Change %: 1.",Could not parse Confidence Score
+HEROMOTOCO,2026-08-13,-0.7633587786259555,528775,0.695523304091825,61.39,none,84.42912254781253,235.97280531933484,182.16120041485328,143.8571428571428,0.8394701250158039,9879169.0,6919701.0,2.9379728840376296,-0.656192241343972,-0.057487783845922,1.0212748775146063,-0.8585402425196098,"HEROMOTOCO Outlook for the Week (August 17, 2026 – August 21, 2026) - Equitypandit","Primary Seller Archetype: Technical Momentum Trader
+Seller Motivation: Stock is significantly overbought (RSI 84.43) and trading near the upper Bollinger Band (0.839), triggering profit-taking and short covering aversion.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Value/Positional Investor
+Buyer Motivation: High delivery percentage (61.39%) indicates strong institutional or long-term investor interest despite the price dip, viewing the pullback as a buying opportunity.
+Confidence Score: 0.85",Missing Buyer Time Horizon: in output
+HINDALCO,2026-04-29,-0.660895466815592,3710080,0.5438497475521499,54.41,none,73.60347322720695,37.10446151788233,31.26115447966841,25.635714285714283,0.8186441357345693,99684426.0,27056267.0,2.298731688636721,-1.0047171924592806,0.6077795786061602,0.7703576585644961,-1.6160837998228783,"Top gainers and losers, April 30: Hindalco, Tata Motors PV, HUL falls 3%, Bajaj Auto surges 5%; check list - Upstox | Sensex falls 600 points, investors lose ₹5 lakh crore: What drove the market down? Explained - livemint.com","Primaryellsellsells Archetype: Momentum Trend Follower
+Seller Motivation: Technical break of key support levels with deteriorating breadth, triggering stop-loss cascades and short covering exits.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Value/Quality Growth Seeker
+Buyer Motivation: Oversold bounce opportunity with strong delivery percentage indicating institutional accumulation despite price decline.
+Buyer Time Horizon: ""12-24 months""
+Confidence Score: 0.82",Missing Primary Seller Archetype: in output
+HINDALCO,2026-05-25,-0.8654886404616091,7677225,1.4570913226463067,43.56,none,58.75926648458833,24.482976899877716,23.242304914256398,30.564285714285745,0.8624728441041073,108438571.0,13075732.0,2.103744335050922,1.0301737009496712,1.073950204384988,0.6932420700073618,-1.9806083795049911,"This Just In: Analysts Are Boosting Their Hindalco Industries Limited (NSE:HINDALCO) Outlook for This Year - simplywall.st | Hindalco, Nalco rise up to 5% on rising global aluminium prices - Moneycontrol.com","Primary Seller Archetype
+Seller Motivation: Position unwinding following a technical breakdown from overbought levels.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Value Investor
+Buyer Motivation: Accumulation during a pullback to support, targeting long-term upside from commodity rally.
+Buyer Time Horizon: ""12-24 months""
+Confidence Score: 0.65",Missing Primary Seller Archetype: in output
+HINDALCO,2026-07-02,1.0109609449824308,3505234,0.4871479809052593,47.49,none,29.45516458569807,-31.924346821521112,-25.858354487815514,25.98214285714285,0.2002480179398968,67867677.0,-15264936.0,-1.9932002965750928,-1.4278090447380831,0.5130648294059403,0.5484793386059916,0.1581707156253342,"Hindalco Industries schedules 67th AGM on July 23 - scanx.trade | NSE Price Band Hitters on July 1, 2026: Filatex Fashions, Grand Oak, Sylvan Ply in Focus - HDFC Sky","Primaryells: Valueells deep_valueells: massellsellsellsellsellsellsellsellsells: value deepellsellsellsells
+ rigorouslyellsellsellsellsellsells:ellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsells deep everyells deepellsellsellsellsellsellsellsellsellsellsells deepells deep andellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells:ells",Missing Primary Seller Archetype: in output
+HINDUNILVR,2026-06-08,-0.5373556445910976,1601497,0.7235887793512602,65.58,none,29.58776595744673,-38.93370712641081,-28.21593710702046,44.37142857142859,0.2226723006004271,-19805177.0,-18803247.0,-1.5665009263626717,-0.2001473033544477,-1.0551703346397434,0.7452695629514042,0.1355542737292122,"Why did HUL share price jump over 3% today? Check JP Morgan and other analysts' views - Upstox | Intraday Stocks for Today 10 June 2026: SBI, REC and HUL With Entry, Target and Stop-Loss - Univest","Primary Seller Archetype: Technical Trend Follower
+Seller Motivation: Price broke below key support and MACD histogram widened negative, triggering algorithmic sell signals.
+Seller Time Horizon: ""<78",Missing Primary Buyer Archetype: in output
+HINDUNILVR,2026-06-29,-1.0532609695520057,1423514,0.7286552561905698,72.49,none,53.36241366775719,-5.607436060329746,-7.9414133782679155,41.09285714285709,0.4841844981030407,-19987268.0,-2506069.0,-1.481659519202295,-0.1759615114858781,-0.4644698826024918,0.7164962320794948,-0.1283209248695535,HINDUNILVR Q2 2026 Earnings: Revenue Growth of 5.27% Drives Higher EPS; Stock Moves Up 0.89% - Earnings Deceleration Risk - Vinanet,"Primary Seller Archetype: Institutional Trader
+Seller Motivation: Portfolio rebalancing and profit-taking following earnings announcement.
+Seller Time Horizon: 12-24 months
+Primary Buyer: 
+  
+  202026-06-29 00:00:00
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  -",Missing Primary Buyer Archetype: in output
+JSWSTEEL,2026-07-03,0.5229612681810769,1153646,0.7506705890214856,47.29,none,25.67865003668388,-14.99427151171676,-9.970775031197318,22.81428571428577,0.2569742968432438,6548951.0,-5494150.0,-0.4924681721332409,-0.6322292241778771,0.5979509242717285,0.803151658935879,-0.4221692995233495,"JSW Steel Limited (NSE:JSWSTEEL) Passed Our Checks, And It's About To Pay A ₹7.10 Dividend - simplywall.st | JSW Steel seeks nod for ₹14,000 crore fund raise at AGM - scanx.trade","Primary Seller Archetype: Distressed Value Seller
+Seller Motivation: Stock trading near 14-year lows with RSI deeply oversold at 25.68, triggering technical selling and stop-loss cascades.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Value Investor / Dividend Seeker
+Buyer Motivation: Stock near 52-week lows with high delivery percentage (47.29%) and an imminent ₹7.10 dividend, attracting long-term accumulation despite negative sector performance.
+Confidence Score: 0.85",Missing Buyer Time Horizon: in output
+JSWSTEEL,2026-07-29,2.381907129681604,1516573,0.9207602468477952,44.74,none,64.64821222606685,0.9430418046993054,-2.9556196905032768,24.842857142857135,1.0,13106266.0,2499805.0,1.9212524063988503,-0.1772982689488428,0.8372025006397887,0.8212593659610414,0.2959750165726893,"JSW Steel Consolidated June 2026 Net Sales at Rs 47,364.00 crore, up 9.77% Y-o-Y - Moneycontrol.com | JSW Steel vs Hindalco Industries: Full Stock Comparison - Univest","Primary Seller Archetype: Technical Momentum Trader
+Seller Motivation: Profit-taking on short-term positions as price breached the upper Bollinger Band and RSI entered overbought territory.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Positional Value Investor
+Buyer Motivation: Accumulation during a pullback, supported by delivery percentage of 44.74% indicating sustained interest and volume near 30-day average
+</think>Primary Seller Archetype: Technical Momentum Trader than0, 20.0, 0.0, 0.0, 0.0, the model analysis based on provided metrics.*",Missing Buyer Time Horizon: in output
+M&M,2026-07-09,-0.5511684125705019,2922682,0.8365820687665326,55.83,none,50.85346215780999,13.870825501135188,12.992892001608244,81.96428571428562,0.3374747504599532,-24773371.0,-10263949.0,-1.6983303668744434,-0.3138578694408745,0.3938312046817938,1.5893508909381928,0.0281834964549454,"Stocks to Watch Today: Tata Steel, SBI, M&M, JSW Energy - HDFC Sky | M&M to raise SUV prices by 2.7%, CV prices by 2% from July 10; stock in focus - Upstox",Primary,Missing Primary Seller Archetype: in output
+NESTLEIND,2026-04-28,1.6016369152614065,4008095,1.930526053632994,72.55,none,90.30993943712149,52.92588254469933,31.421231293483,34.92142857142859,0.933354791302328,26889955.0,31494394.0,4.825727669139043,0.9951435230852582,-0.3816233670923097,0.6638435120902756,1.9933565850150103,Nestlé India's (NSE:NESTLEIND) Earnings Seem To Be Promising - simplywall.st,"Primary Seller Archetype: Institutional Profit Taker
+Seller Motivation: Realized significant gains following a breakout from resistance, locking in profits after the stock breached the upper Bollinger Band.
+Seller Time Horizon: <7 days
+Primary Buyer Archetype: Momentum Fund / Speculative Trader: 1.930526053632994",Missing Buyer Motivation: in output
+NESTLEIND,2026-05-29,-0.4203152364273155,13063475,4.70214682530003,71.2,none,26.145339652448698,13.773321029614408,23.51843229625302,27.91428571428576,0.2702599779549969,9268833.0,-15458320.0,-0.2321445852480535,3.8086035790969137,-1.1663098841071862,0.5319390404524529,1.1268372852775952,"Nestle India (NESTLEIND.NS) Holds Near ₹1,428 as Key Support at ₹1,357 Remains Intact - Earnings Breakout Stocks - Vinanet | Nestle India Edges Lower Amid Resistance Testing – NESTLEIND Consolidates Near Key Levels - High Reward Trades - Vinanet",Primary Seller Archetype:</think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think></think>,Missing Seller Motivation: in output
+NTPC,2026-05-25,0.3602212787855441,10489850,1.1010098822560326,56.87,none,40.65217391304351,-0.2128117455706615,1.3047964777825427,8.471428571428586,0.2514356376205656,39970019.0,-29728647.0,-0.2985411544426498,0.3253632076546565,1.073950204384988,0.3922815459793178,-0.389028984008046,"Suzlon Energy, Waaree Energies, NTPC Green and more: How renewable energy stocks are performing on May 25 - Upstox | NTPC Consolidated March 2026 Net Sales at Rs 49,687.77 crore, down 0.29% Y-o-Y - Moneycontrol.com",Primary:,Missing Primary Seller Archetype: in output
+NTPC,2026-07-23,-0.5420827389443605,6863144,0.5512794475285351,58.03,none,40.48484848484851,-4.350157841138525,-5.275032691974018,5.874999999999992,0.4162208794112501,-6835772.0,6562689.0,0.6105362649340117,-0.6852669472407237,-0.5048287971905152,0.3058441589462879,-0.0267242480658717,NTPC Green shares zoom 9% after Q1 results - BusinessLine | NTPC Green Energy shares gain 3% after robust Q1 earnings - Moneycontrol.com,"Primary Seller Archetype: <archetype name>
+ 
+Primary Seller Archetype: Momentum Trader
+Seller Motivation: Cutting losses on a mean-reverting position while capturing short-term momentum from a recent earnings-driven rally.
+Primary Buyer Archetype: Value Investor
+Buyer Motivation: Accumulating shares at a discount to the recent Q1 earnings rally, attracted by the stock's deviation from its 20-day VWAP and oversold RSI.
+Buyer Time Horizon: 12-24 months
+Confidence Score: 0.55",Missing Seller Time Horizon: in output
+ONGC,2026-08-05,-0.7438016528925617,19409088,1.2567377517672855,48.26,none,37.83884144077236,-2.1625950369474936,-2.0341193116959486,4.252142857142856,0.2226786750100383,303713601.0,-20425289.0,-0.9109622070217452,0.4542579912683931,0.4196707198966809,-0.3600132573633187,-0.717116991791722,"Oil and Natural Gas Corporation Limited Just Beat EPS By 7.6%: Here's What Analysts Think Will Happen Next - simplywall.st | Stocks to Watch Today: Manipal Hospitals, Bharti Airtel, ONGC, Nykaa, Marico, MCX, Sheela Foam, Metropolis... - Moneycontrol.com","Primary Seller Archetype: Technical Trend Follower
+Seller Motivation: Price action breached key support levels with negative momentum indicators, triggering stop-losses and short-side algorithmic execution.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Value Investor / Contrarian
+Buyer Motivation:",Missing Buyer Time Horizon: in output
+POWERGRID,2026-05-15,1.3587406793703405,10092811,0.8848044866327498,58.99,none,24.00690846286703,-0.2340588395687177,2.2154623529205617,6.196428571428571,0.1383093163361875,117334533.0,-5968556.0,-0.9602840290575022,-0.2802239233058017,-0.294677160654988,0.2092904791440384,1.870044769769158,"Power Grid Q4 | Profit beats Street rising 10%, other metrics fall short; declares dividend - CNBC TV18 | Power Grid Q4 FY26 Results: PAT and Revenue Analysis - Univest","Primaryells: Value Investor
+Seller Motivation: Stock trading below 20-day Bollinger Band lower threshold with negative OBV trend indicating accumulation/distribution shift.
+Seller Time Horizon: 12-24 months
+Primary Buyer Archetype: Momentum Trader
+Buyer Motivation: Price breakout above recent lows with rising dividend yield attracting income-focused speculative buying.
+Buyer Time Horizon: <7 days
+Confidence Score: 0.52",Missing Primary Seller Archetype: in output
+RELIANCE,2026-08-12,0.3852254702016777,7901012,0.6520797378057465,52.72,none,65.67328918322298,5.7868281966150334,0.601460320757273,21.400000000000027,0.7988649968546484,-215126791.0,12679863.0,1.7891684081099015,-0.940816374435785,-0.2901873678931022,1.3303635862099863,0.3815738405301916,"Reliance Stock And India Refiners Facing A Russian Crude Test - simplywall.st | NIFTY50 falls for third straight session; ICICI Bank, Reliance top drags - Upstox",Primaryellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsells deepellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsellsells,Missing Primary Seller Archetype: in output
+SUNPHARMA,2026-05-15,0.8050665521683209,2756465,0.5403670484635904,63.56,none,76.07207207207206,39.01490069726947,30.663844605359134,41.51428571428572,0.795705515227459,53592006.0,7593870.0,1.8755233592084783,-0.4565572808862131,-0.294677160654988,0.3407662724315436,0.7553940209500842,"Q4 results this week: Indian Oil, BEL, Grasim, ITC, LIC, Sun Pharma, BPCL, LG Electronics, Nykaa, Ola Electric and more - Upstox | Sun Pharmaceutical Receives Promoter Group Reclassification Requests Totalling 1.80% Shareholding - scanx.trade","Primary Seller Archetype: Institutional Profit Taker
+Seller Motivation: Realizing gains after a breakout triggered by reclassification news and extreme RSI levels.
+Seller Time Horizon: <7 days ago",Missing Primary Buyer Archetype: in output
+SUNPHARMA,2026-06-04,-0.4696673189823919,2343536,0.4917963191620314,65.72,none,23.15270935960588,1.4821815978777977,15.633649881700627,40.15714285714288,0.0741434213781953,30591320.0,-24485177.0,-1.929221905668397,-0.4523110494450535,0.0188288457917629,0.3714192399233391,-0.7447028818476653,"Top 10 Stocks to Buy Today 3 June 2026: IT Momentum, Quality Banking and Defensive Pharma Picks - Univest | SUNPHARMA Q2 FY2026 Earnings: Robust Revenue Growth of ~12% Driven by US Specialty and Emerging Markets - Vinanet",Primary,Missing Primary Seller Archetype: in output
+SUNPHARMA,2026-07-30,0.5628423538871274,2224264,1.0058699534370048,60.12,none,66.80327868852454,31.70645218221125,29.54193809577542,28.985714285714284,0.9920118636384958,63725528.0,14273346.0,1.9337598098157,0.0128442106828554,0.2429120440867294,0.3278826363309467,0.2652924595516004,"Stocks to Watch today: Tata Steel, ITC, Sun Pharma, Swiggy, IOCL, IRFC - Business Standard | Q1 Results: Maruti Suzuki, Sun Pharma, ITC, Bajaj Finserv, Indian Oil, ABB India, GAIL, Urban Company, Dixon Tech, others to post earnings on July 31 - Upstox","Primary Seller Archetype: Institutional Trader
+Seller Motivation: Profit-taking on a stock with extreme Bollinger Band position near",Missing Seller Time Horizon: in output
+TATACONSUM,2026-06-02,0.9971136184728556,2873292,1.0462201464311751,55.98,none,23.107836570663096,4.537673234691056,15.031716101403903,27.199999999999964,0.178699017009952,13139263.0,-12445684.0,-2.483332174223535,0.03611663048829,0.1883097318469362,0.4151392450703258,0.5541321672747179,"Tata Consumer Products Edges Higher: Stock Holds Above Key Support at ₹1102 - Anchored VWAP - Vinanet | TATACONSUM Mar 2026 Earnings: Revenue at ₹3,892 Crore, EPS at ₹3.18 Amidst Stable Consumption Demand - Mid-Term Outlook - Vinanet",Primary,Missing Primary Seller Archetype: in output
+TATACONSUM,2026-07-28,-2.28463066642588,1500024,0.9099189036631292,55.94,none,47.53046824887748,-7.721951537942459,-8.89279034167002,22.9928571428572,0.1717853590814304,16978656.0,3759190.0,-1.1510384121442672,-0.1640268318759325,-0.0219306261193819,0.2534090139875761,-1.3801058600620864,,"Primary the -'ells: Institutional Investor
+Seller Motivation: Portfolio rebalancing and profit-taking after a period of outperformance.
+Seller Time Horizon: 12-24 months
+Primary Buyer Archetype: Value Investor
+Buyer Motivation: Accumulating a fundamentally strong FMCG stock at a discounted valuation following a minor pullback.
+Buyer Time Horizon: 12-24 months
+Confidence Score: 0.75",Missing Primary Seller Archetype: in output
+TCS,2026-04-28,-0.1184834123222788,4508363,0.9797777591796296,61.36,none,39.6865429652315,-9.66168731675316,-2.5002067898239373,64.3714285714286,0.2491167239864002,-67661867.0,812642.0,-2.6696632164302567,-0.0548727440836906,-0.3816233670923097,0.6468602286248081,0.9071357780261912,"TCS Siemens Energy AI Deal Signals Next Phase; Shares Up - HDFC Sky | IT Stocks See Long Unwinding On F&O Expiry Day As Infosys, HCLTech, Wipro Futures Slip - NDTV Profit","Primary Sellsells deepells Archetype: Value Investor
+Seller Motivation: Moderate price decline with delivery percentage indicating active distribution.
+Seller Time Horizon: 12-24 months
+Primary Buyer Archetype: Momentum/Trend Follower
+Buyer Motivation: Oversold RSI condition and Bollinger Band position suggesting value entry.
+Buyer Time Horizon: <7 days
+Confidence Score: 0.65",Missing Primary Seller Archetype: in output
+TECHM,2026-07-28,3.822222222222216,5082959,1.8234251140146132,53.7,none,85.22184300341293,40.19819617827852,28.16681269997479,47.70714285714285,0.9520495479455292,-18578481.0,19496442.0,4.313395176811142,1.24913483719909,-0.0219306261193819,0.4240663031700946,1.0340487796197897,"Tech Mahindra Standalone June 2026 Net Sales at Rs 13,218.60 crore, up 14.01% Y-o-Y - Moneycontrol.com | Tech Mahindra Ltd spurts 2.22%, up for five straight sessions - Business Standard","Primary Seller Arellsells Archetype: Momentum Churn Seller
+Seller Motivation: Profit-taking on a stock that has surged 3.82% with extreme overbought conditions (RSI 85.22) and Bollinger Band position at 0.95, indicating near-peak valuation.
+Seller Time Horizon: ""<7 days""
+Primary Buyer Archetype: Trend Following Institutional Buyer
+Buyer Motivation: Capturing breakout momentum in a fundamentally strong IT stock with strong delivery percentage (53.7%) and above-average volume (1.82x 30d avg) despite overall market slight decline.
+Buyer Time Horizon: ""12-24 months""
+Confidence Score: 0.85",Missing Primary Seller Archetype: in output
+VEDL,2026-05-18,-1.2233801540552869,21115770,0.5627053461513716,32.39,none,18.55072463768116,-100.83350602648233,-97.98929163437748,52.80714285714286,0.3456239241641796,423684121.0,193433999.0,3.6707051946348495,-0.6422869730217052,0.1047512158623087,1.1670823269816502,-0.0773116421257813,Vedanta share price targets as analysts turn bullish in short term - Business Today | Vedanta demerger: At what price will each of the four new companies list? Check cost of acquisition - The Economic Times,"Primary Seller Archetype: Distressed Value Trap Seller
+Seller Motivation: Technical breakdown triggered stop-losses and algorithmic selling despite positive fundamental headlines.
+Seller Time Horizon: ""<7 days""
+Primary Buyer
+Time Horizon: <7 days>
+Confidence Score: 0.85",Missing Primary Buyer Archetype: in output
+VEDL,2026-05-28,0.0,26959207,0.6832580056395585,26.51,none,79.76494634644868,-59.96532862368241,-76.98183977610216,11.83214285714286,0.879390013344313,515254289.0,14061593.0,5.080882378265873,-0.5094752535396228,0.0,1.162143074701005,0.0,Vedanta demerger: Aluminium prices hit 4-year high; spotlight on Vedanta Aluminium ahead of likely June listing - Upstox | Vedanta Ltd Share Price Today Rs 352.75: Buy or Avoid in 2026 - Univest,"Primary Seller Archetype the The data shows:
+
+- Stock Ticker: VEDL
+- Date: 2026-05-28 00:00:00
+- Price Change %: 0.0
+- Volume: 26959207
+- Volume vs 30d
+- 2026-05-28 00:00:00
+- Volume: 0.0",Missing Primary Seller Archetype: in output
+INFY,2026-08-21,-0.7964601769911539,6094967,0.4970243614201323,62.17,none,30.769230769230774,7.471031982530576,15.119655743860188,22.450000000000028,0.2613689802901516,-232799602.0,-3866479.0,-2.8670728696357344,-0.8247492962497359,0.0686987019560936,1.4167947186569982,-0.3058227436713401,"TCS, Infosys, Wipro, HCL Tech, TechM Crashed: Why IT Stocks Are Falling? Jefferies Downgrades 6 Tech Shares - Goodreturns | 10 Stocks to Buy Today: Entry, Target and Stop-Loss for 21 Aug - Univest","Primary Seller
+Motivation: Trend reversal against the day after entry
+Time Horizon: <7 days
+Primary Buyer Archetype: Trend Follower
+Motivation: Breakout attempt
+Buyer Time Horizon: 12-2026-08-21 00:00:00",Missing Primary Seller Archetype: in output
+WIPRO,2026-05-13,-0.9336920398797188,17242394,0.7177522126187844,47.14,none,22.937771345875504,-2.2254397026974573,-0.7226315876596099,3.636428571428573,0.0,-235771811.0,-86129163.0,-4.576941715329358,-0.4670921794394955,0.1471420486700569,0.4926345228951748,0.0962214850342846,"Wipro Senior VP Aparna Iyer Sells 61% Of Holding - simplywall.st | Infosys, TCS, Wipro, HCLTech, TechM shares gain as Nifty IT climbs 2%; What's fuelling the upmove? - Business Today",Primary Seller Arnavictory,Missing Primary Seller Archetype: in output
+WIPRO,2026-07-06,-0.9995456610631616,8304046,0.2565574511704653,40.98,none,33.849129593810474,-5.290111559130708,-5.563435222774071,4.058571428571428,0.3090202776697958,-191622546.0,-31355556.0,0.2925145003829314,-1.279584742809499,0.5509042803812703,1.3091798660708076,-0.2258327934132009,"Wipro Q1 Results: Date, Time, Dividend News, Earnings Call Schedule And More - NDTV Profit | Wipro schedules July 16 earnings call after India trading closes - Stock Titan","Primary Seller Archetype: Technical Trend Follower
+Seller Motivation: MACD histogram widening negative divergence and price trading below VWAP with a negative OBV trend indicate institutional distribution.
+Seller Time Horizon: 12-24 months
+Primary Buyer Archetype: Value Hunter
+Buyer Motivation: Stock trading near lower Bollinger Band (position 0.31) with RSI at 33.84 indicating oversold conditions and high delivery percentage (40.98%) suggesting retail accumulation.
+Buyer
+Confidence Score: 0.62",Missing Buyer Time Horizon: in output

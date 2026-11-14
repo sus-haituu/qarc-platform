@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: #090d16;
+  color: #e2e8f0;
+  font-feature-settings: "tnum" on, "lnum" on;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+

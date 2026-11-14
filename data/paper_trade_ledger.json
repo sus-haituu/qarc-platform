@@ -1,0 +1,14 @@
+[
+  {
+    "status": "PAPER_FILLED",
+    "mode": "PAPER",
+    "order_id": "PAPER-TCS-1794561085499",
+    "symbol": "TCS",
+    "side": "BUY",
+    "quantity": 1,
+    "price": 2403.8,
+    "order_type": "LIMIT",
+    "product_type": "DELIVERY",
+    "timestamp": "2026-11-13T14:41:25.499896"
+  }
+]
