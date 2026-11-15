@@ -3,6 +3,7 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { normalizeNseSymbol, searchSymbols, type SymbolSearchItem } from "@/lib/qarcApi";
+import StockLogo from "@/components/StockLogo";
 
 interface NseStockSearchProps {
   onSubmit: (symbol: string) => void;
@@ -145,7 +146,8 @@ export default function NseStockSearch({ onSubmit, busy = false }: NseStockSearc
                 idx === activeIdx ? "bg-[#101216]" : ""
               }`}
             >
-              <span className="flex min-w-0 items-baseline gap-2">
+              <span className="flex min-w-0 items-center gap-2.5">
+                <StockLogo symbol={r.symbol} size="sm" />
                 <span
                   className={`font-display text-sm font-bold uppercase tracking-[-0.02em] ${
                     idx === activeIdx ? "text-[#D2FF00]" : "text-white"

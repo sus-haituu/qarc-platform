@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/components/AuthProvider";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -33,7 +34,7 @@ export default function RootLayout({
       className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen bg-[#090A0C] font-sans text-zinc-100 antialiased selection:bg-[#D2FF00] selection:text-[#090A0C]">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
