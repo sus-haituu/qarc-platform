@@ -172,13 +172,15 @@ class QArcModelClient:
         try:
             print(f"  • [Q-ARC CLIENT] Querying fine-tuned Nemotron 70B at: {self.endpoint_url}...")
             from openai import OpenAI
-            client = OpenAI(base_url=self.endpoint_url, api_key=self.api_key, timeout=25.0, max_retries=0)
+            llm_timeout = float(os.getenv("QARC_LLM_TIMEOUT_SEC", "120.0"))
+            max_toks = int(os.getenv("QARC_LLM_MAX_TOKENS", "160"))
+            client = OpenAI(base_url=self.endpoint_url, api_key=self.api_key, timeout=llm_timeout, max_retries=0)
 
             kwargs: Dict[str, Any] = {
                 "model": "qarc_nemotron_70b",
                 "messages": messages,
                 "temperature": 0.0,
-                "max_tokens": 400,
+                "max_tokens": max_toks,
             }
             if resolved_bias:
                 kwargs["logit_bias"] = resolved_bias
@@ -220,7 +222,9 @@ class QArcModelClient:
 
         try:
             from openai import OpenAI
-            client = OpenAI(base_url=self.endpoint_url, api_key=self.api_key, timeout=3.5, max_retries=0)
+            repair_timeout = float(os.getenv("QARC_LLM_REPAIR_TIMEOUT_SEC", "45.0"))
+            client = OpenAI(base_url=self.endpoint_url, api_key=self.api_key, timeout=repair_timeout, max_retries=0)
+            repair_max_toks = int(os.getenv("QARC_LLM_MAX_TOKENS", "160"))
             response = client.chat.completions.create(
                 model="qarc_nemotron_70b",
                 messages=[
@@ -230,7 +234,7 @@ class QArcModelClient:
                     {"role": "user", "content": repair_prompt},
                 ],
                 temperature=0.0,
-                max_tokens=400,
+                max_tokens=repair_max_toks,
             )
             content = response.choices[0].message.content.strip()
             repaired = self._parse_json_response(content)

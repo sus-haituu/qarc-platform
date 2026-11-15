@@ -1007,7 +1007,9 @@ try:
         llm_endpoint_url: Optional[str] = None
 
     class LLMEndpointConfigRequest(BaseModel):
-        endpoint_url: str
+        endpoint_url: Optional[str] = None
+        llm_endpoint_url: Optional[str] = None
+        admin_secret: Optional[str] = None
 
     class PortfolioGenerateRequest(BaseModel):
         capital_inr: float = 500000.0
@@ -1045,9 +1047,11 @@ try:
         x_qarc_admin_secret: Optional[str] = Header(default=None, alias="X-QARC-Admin-Secret"),
     ):
         try:
+            provided_secret = x_qarc_admin_secret or req.admin_secret
+            raw_url = (req.endpoint_url or req.llm_endpoint_url or "").strip()
             return set_runtime_llm_endpoint(
-                req.endpoint_url,
-                admin_secret=x_qarc_admin_secret,
+                raw_url,
+                admin_secret=provided_secret,
             )
         except PermissionError as exc:
             raise HTTPException(status_code=401, detail=str(exc))
