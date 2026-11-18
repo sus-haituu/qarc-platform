@@ -402,12 +402,14 @@ export default function LandingPage() {
                   <span className="sm:hidden">Sign in</span>
                 </button>
 
-                <Link
-                  href="/dashboard"
-                  className="inline-flex items-center gap-1.5 border border-[#D2FF00] bg-[#D2FF00] px-3.5 py-2 font-mono text-xs font-bold uppercase tracking-[0.12em] text-[#090A0C] transition hover:-translate-y-0.5 hover:border-white hover:bg-white active:translate-y-0"
+                <button
+                  type="button"
+                  disabled={status === "loading"}
+                  onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                  className="inline-flex items-center gap-1.5 border border-[#D2FF00] bg-[#D2FF00] px-3.5 py-2 font-mono text-xs font-bold uppercase tracking-[0.12em] text-[#090A0C] transition hover:-translate-y-0.5 hover:border-white hover:bg-white active:translate-y-0 disabled:cursor-wait disabled:opacity-70"
                 >
                   Launch Platform →
-                </Link>
+                </button>
               </>
             )}
           </div>
@@ -475,12 +477,23 @@ export default function LandingPage() {
                 reaches Angel One SmartAPI.
               </p>
               <div className="flex flex-wrap items-center gap-3 lg:col-span-5 lg:justify-end">
-                <Link
-                  href="/dashboard"
-                  className="inline-flex items-center gap-2 border border-[#D2FF00] bg-[#D2FF00] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-[#090A0C] transition hover:-translate-y-0.5 hover:border-white hover:bg-white"
-                >
-                  Launch Platform <ArrowRight className="h-4 w-4" />
-                </Link>
+                {status === "authenticated" && session?.user ? (
+                  <Link
+                    href="/dashboard"
+                    className="inline-flex items-center gap-2 border border-[#D2FF00] bg-[#D2FF00] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-[#090A0C] transition hover:-translate-y-0.5 hover:border-white hover:bg-white"
+                  >
+                    Launch Platform <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={status === "loading"}
+                    onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                    className="inline-flex items-center gap-2 border border-[#D2FF00] bg-[#D2FF00] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-[#090A0C] transition hover:-translate-y-0.5 hover:border-white hover:bg-white disabled:cursor-wait disabled:opacity-70"
+                  >
+                    Launch Platform <ArrowRight className="h-4 w-4" />
+                  </button>
+                )}
                 <a
                   href="#why-qarc"
                   className="inline-flex items-center gap-2 border border-[#23262D] bg-[#101216] px-5 py-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-zinc-200 transition hover:border-[#D2FF00] hover:text-[#D2FF00]"
@@ -562,23 +575,21 @@ export default function LandingPage() {
                     return (
                       <div
                         key={chap.step}
-                        className={`relative rounded-lg border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] transition-all ${
-                          isActive
-                            ? isSignal
-                              ? "border-[#FF3B5C]/70 bg-[#FF3B5C]/10 text-[#FF3B5C]"
-                              : "border-[#D2FF00]/70 bg-[#D2FF00]/10 text-[#D2FF00]"
-                            : "border-[#23262D] bg-[#090A0C] text-zinc-500"
-                        }`}
+                        className={`relative rounded-lg border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] transition-all ${isActive
+                          ? isSignal
+                            ? "border-[#FF3B5C]/70 bg-[#FF3B5C]/10 text-[#FF3B5C]"
+                            : "border-[#D2FF00]/70 bg-[#D2FF00]/10 text-[#D2FF00]"
+                          : "border-[#23262D] bg-[#090A0C] text-zinc-500"
+                          }`}
                       >
                         <span
                           aria-hidden="true"
-                          className={`absolute -left-[19px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border ${
-                            isActive
-                              ? isSignal
-                                ? "border-[#FF3B5C] bg-[#FF3B5C] shadow-[0_0_8px_#FF3B5C]"
-                                : "border-[#D2FF00] bg-[#D2FF00] shadow-[0_0_8px_#D2FF00]"
-                              : "border-[#23262D] bg-[#090A0C]"
-                          }`}
+                          className={`absolute -left-[19px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border ${isActive
+                            ? isSignal
+                              ? "border-[#FF3B5C] bg-[#FF3B5C] shadow-[0_0_8px_#FF3B5C]"
+                              : "border-[#D2FF00] bg-[#D2FF00] shadow-[0_0_8px_#D2FF00]"
+                            : "border-[#23262D] bg-[#090A0C]"
+                            }`}
                         />
                         {chap.railLabel}
                       </div>
@@ -611,19 +622,17 @@ export default function LandingPage() {
                       accentHex={
                         isSignal ? "rgba(255, 59, 92, 0.14)" : "rgba(210, 255, 0, 0.12)"
                       }
-                      className={`rounded-2xl border bg-[#101216] p-6 transition-colors duration-300 sm:p-8 ${
-                        isActive
-                          ? isSignal
-                            ? "border-[#FF3B5C]/80"
-                            : "border-[#D2FF00]/80"
-                          : "border-[#23262D] hover:border-zinc-600"
-                      }`}
+                      className={`rounded-2xl border bg-[#101216] p-6 transition-colors duration-300 sm:p-8 ${isActive
+                        ? isSignal
+                          ? "border-[#FF3B5C]/80"
+                          : "border-[#D2FF00]/80"
+                        : "border-[#23262D] hover:border-zinc-600"
+                        }`}
                     >
                       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#23262D] pb-4">
                         <span
-                          className={`font-mono text-xs font-bold uppercase tracking-[0.16em] ${
-                            isSignal ? "text-[#FF3B5C]" : "text-[#D2FF00]"
-                          }`}
+                          className={`font-mono text-xs font-bold uppercase tracking-[0.16em] ${isSignal ? "text-[#FF3B5C]" : "text-[#D2FF00]"
+                            }`}
                         >
                           {chap.tag}
                         </span>
@@ -634,9 +643,8 @@ export default function LandingPage() {
 
                       <div className="mt-5 flex items-baseline gap-4">
                         <span
-                          className={`font-display text-4xl font-bold tabular-nums sm:text-5xl ${
-                            isSignal ? "text-[#FF3B5C]" : "text-stroke-volt"
-                          }`}
+                          className={`font-display text-4xl font-bold tabular-nums sm:text-5xl ${isSignal ? "text-[#FF3B5C]" : "text-stroke-volt"
+                            }`}
                         >
                           {chap.step}
                         </span>
@@ -656,9 +664,8 @@ export default function LandingPage() {
                             className="flex items-start gap-2 font-mono text-[11px] leading-snug text-zinc-400"
                           >
                             <span
-                              className={`mt-1 h-1.5 w-1.5 shrink-0 ${
-                                isSignal ? "bg-[#FF3B5C]" : "bg-[#D2FF00]"
-                              }`}
+                              className={`mt-1 h-1.5 w-1.5 shrink-0 ${isSignal ? "bg-[#FF3B5C]" : "bg-[#D2FF00]"
+                                }`}
                             />
                             <span>{pt}</span>
                           </li>
@@ -995,12 +1002,23 @@ export default function LandingPage() {
                 price collar.
               </p>
               <div className="mt-8">
-                <Link
-                  href="/dashboard"
-                  className="inline-flex items-center gap-2 border border-[#090A0C] bg-[#090A0C] px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-[0.14em] text-[#D2FF00] transition hover:-translate-y-0.5 hover:bg-zinc-900"
-                >
-                  Open Live Execution Terminal →
-                </Link>
+                {status === "authenticated" && session?.user ? (
+                  <Link
+                    href="/dashboard"
+                    className="inline-flex items-center gap-2 border border-[#090A0C] bg-[#090A0C] px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-[0.14em] text-[#D2FF00] transition hover:-translate-y-0.5 hover:bg-zinc-900"
+                  >
+                    Open Live Execution Terminal →
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={status === "loading"}
+                    onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                    className="inline-flex items-center gap-2 border border-[#090A0C] bg-[#090A0C] px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-[0.14em] text-[#D2FF00] transition hover:-translate-y-0.5 hover:bg-zinc-900 disabled:cursor-wait disabled:opacity-70"
+                  >
+                    Open Live Execution Terminal →
+                  </button>
+                )}
               </div>
             </div>
 
@@ -1056,9 +1074,20 @@ export default function LandingPage() {
             <a href="#engines" className="hover:text-[#D2FF00]">
               Engines
             </a>
-            <Link href="/dashboard" className="text-[#D2FF00] hover:underline">
-              Dashboard →
-            </Link>
+            {status === "authenticated" && session?.user ? (
+              <Link href="/dashboard" className="text-[#D2FF00] hover:underline">
+                Dashboard →
+              </Link>
+            ) : (
+              <button
+                type="button"
+                disabled={status === "loading"}
+                onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                className="uppercase tracking-wider text-[#D2FF00] hover:underline disabled:opacity-70"
+              >
+                Dashboard →
+              </button>
+            )}
           </div>
         </div>
       </footer>

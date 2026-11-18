@@ -396,8 +396,10 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    loadInitial();
-  }, [loadInitial]);
+    if (authStatus === "authenticated") {
+      loadInitial();
+    }
+  }, [authStatus, loadInitial]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -901,6 +903,101 @@ export default function DashboardPage() {
     </div>
   );
 
+  if (authStatus === "loading") {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#090A0C] p-6 text-zinc-100">
+        <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#101216] p-8 text-center shadow-[0_24px_80px_rgba(0,0,0,0.75)]">
+          <div className="mb-6 inline-flex items-center gap-2">
+            <span className="font-display text-3xl font-black uppercase tracking-tighter">
+              <span className="inline-block text-[#D2FF00] drop-shadow-[0_0_12px_rgba(210,255,0,0.65)] motion-safe:animate-pulse">
+                Q
+              </span>
+              <span className="inline-block text-white">-ARC</span>
+            </span>
+            <span className="relative flex h-2 w-2" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[#D2FF00] opacity-75 motion-safe:animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#D2FF00]" />
+            </span>
+          </div>
+
+          <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-[#D2FF00]/40 bg-[#D2FF00]/10">
+            <RefreshCw className="h-5 w-5 animate-spin text-[#D2FF00]" />
+          </div>
+
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-[#D2FF00]">
+            Verifying Q-ARC Institutional Session...
+          </p>
+          <div className="mt-5 space-y-2">
+            <div className="h-2.5 w-full animate-pulse rounded-full bg-white/10" />
+            <div className="mx-auto h-2.5 w-2/3 animate-pulse rounded-full bg-white/5" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (authStatus === "unauthenticated" || !session?.user) {
+    return (
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#090A0C] p-6 text-zinc-100">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_circle_at_50%_20%,rgba(210,255,0,0.08),transparent_65%)]"
+        />
+        <div className="relative z-10 w-full max-w-md rounded-2xl border border-white/10 bg-[#101216] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.8)]">
+          <div className="flex items-center justify-between border-b border-white/10 pb-5">
+            <div className="group relative inline-flex items-center gap-2 py-0.5">
+              <span className="font-display text-3xl font-black uppercase tracking-tighter">
+                <span className="inline-block text-[#D2FF00] drop-shadow-[0_0_12px_rgba(210,255,0,0.65)] motion-safe:animate-pulse">
+                  Q
+                </span>
+                <span className="inline-block text-white">-ARC</span>
+              </span>
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#D2FF00] opacity-75 motion-safe:animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#D2FF00]" />
+              </span>
+            </div>
+
+            <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#D2FF00]/40 bg-[#D2FF00]/10 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[#D2FF00]">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              OAUTH GATE
+            </span>
+          </div>
+
+          <div className="mt-6">
+            <h1 className="font-display text-2xl font-black uppercase tracking-tight text-white">
+              Institutional Access Required
+            </h1>
+            <p className="mt-2 font-mono text-xs leading-relaxed text-zinc-400">
+              Sign in with Google to unlock live NSE 8D state-space telemetry, E01–E15 ClaimVerifier
+              audits, and the 4-lock Risk Gate terminal.
+            </p>
+          </div>
+
+          <div className="mt-6 space-y-3">
+            <button
+              type="button"
+              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-[#D2FF00] bg-[#D2FF00] px-4 py-3 font-mono text-xs font-bold uppercase tracking-[0.12em] text-[#090A0C] shadow-[0_0_24px_rgba(210,255,0,0.2)] transition hover:-translate-y-0.5 hover:border-white hover:bg-white active:translate-y-0"
+            >
+              <span className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-white">
+                <GoogleGIcon />
+              </span>
+              <span>Continue with Google →</span>
+            </button>
+
+            <Link
+              href="/"
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-[#090A0C] px-4 py-2.5 font-mono text-xs font-semibold uppercase tracking-[0.1em] text-zinc-300 transition hover:border-[#D2FF00]/60 hover:text-[#D2FF00]"
+            >
+              ← Back to Landing Page
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen bg-[#090A0C] text-zinc-100">
       {/* Desktop Fixed Left Navigation Rail */}
@@ -1004,39 +1101,25 @@ export default function DashboardPage() {
                 <span>{dataSourceLabel}</span>
               </button>
 
-              {authStatus === "authenticated" && session?.user ? (
-                <div className="hidden items-center gap-1.5 rounded-xl border border-white/10 bg-[#101216] px-2.5 py-1 sm:flex">
-                  {session.user.image && !avatarFailed ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={session.user.image}
-                      alt={session.user.name || "Google User"}
-                      referrerPolicy="no-referrer"
-                      onError={() => setAvatarFailed(true)}
-                      className="h-5 w-5 rounded-md object-cover"
-                    />
-                  ) : (
-                    <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[#D2FF00] font-mono text-[10px] font-bold text-[#090A0C]">
-                      {userInitial}
-                    </span>
-                  )}
-                  <span className="max-w-[110px] truncate font-mono text-[11px] text-zinc-200">
-                    {session.user.name || session.user.email}
+              <div className="hidden items-center gap-1.5 rounded-xl border border-white/10 bg-[#101216] px-2.5 py-1 sm:flex">
+                {session.user.image && !avatarFailed ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name || "Google User"}
+                    referrerPolicy="no-referrer"
+                    onError={() => setAvatarFailed(true)}
+                    className="h-5 w-5 rounded-md object-cover"
+                  />
+                ) : (
+                  <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[#D2FF00] font-mono text-[10px] font-bold text-[#090A0C]">
+                    {userInitial}
                   </span>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  disabled={authStatus === "loading"}
-                  onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-                  className="hidden items-center gap-1.5 rounded-xl border border-white/10 bg-[#101216] px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-zinc-200 transition hover:border-[#D2FF00] hover:text-[#D2FF00] sm:inline-flex"
-                >
-                  <span className="flex h-4 w-4 items-center justify-center rounded-[3px] bg-white">
-                    <GoogleGIcon />
-                  </span>
-                  <span>Sign in</span>
-                </button>
-              )}
+                )}
+                <span className="max-w-[110px] truncate font-mono text-[11px] text-zinc-200">
+                  {session.user.name || session.user.email}
+                </span>
+              </div>
 
               <button
                 type="button"
