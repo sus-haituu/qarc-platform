@@ -35,6 +35,14 @@ import StateSpaceChart, { type SeriesPoint } from "@/components/StateSpaceChart"
 import NseStockSearch from "@/components/NseStockSearch";
 import StockLogo from "@/components/StockLogo";
 import {
+  DeliveryVolumeMicrostructureSvg,
+  KalmanNoiseOscillatorSvg,
+  MonteCarloTailDensitySvg,
+  PortfolioDonutRingSvg,
+  RegimeScatterManifoldSvg,
+  StateSpaceRadar8dSvg,
+} from "@/components/QuantVisualGraphs";
+import {
   analyzeBcp,
   configureLlmEndpoint,
   executeTrade,
@@ -1028,7 +1036,10 @@ export default function DashboardPage() {
 
   const [trajTab, setTrajTab] = useState<"kalman" | "cone" | "candles">("kalman");
   const [distTab, setDistTab] = useState<"hmm" | "vel_rsi" | "twins">("hmm");
-  const [ledgerTab, setLedgerTab] = useState<"portfolio" | "trades" | "verdict">("portfolio");
+  const [ledgerTab, setLedgerTab] = useState<"portfolio" | "donut" | "trades" | "verdict">(
+    "portfolio"
+  );
+  const [microTab, setMicroTab] = useState<"delivery" | "oscillator">("delivery");
 
   // Core Data & Telemetry State
   const [snapshot, setSnapshot] = useState<SnapshotPayload | null>(null);
@@ -2332,6 +2343,7 @@ export default function DashboardPage() {
                             {(
                               [
                                 { id: "portfolio", label: "PORTFOLIO" },
+                                { id: "donut", label: "DONUT RING" },
                                 { id: "trades", label: "TRADES" },
                                 { id: "verdict", label: "70B VERDICT" },
                               ] as const
@@ -2424,6 +2436,31 @@ export default function DashboardPage() {
                               </span>
                             )}
 
+                            <button
+                              type="button"
+                              onClick={handleOptimize100kPortfolio}
+                              disabled={generatingPortfolio}
+                              className="border border-[#D2FF00] bg-[#D2FF00] px-3.5 py-1.5 font-mono text-xs font-bold uppercase tracking-[0.12em] text-[#090A0C] transition hover:-translate-y-0.5 hover:border-white hover:bg-white disabled:opacity-50"
+                            >
+                              {generatingPortfolio ? "Optimizing..." : "Optimize ₹1,00,000"}
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {ledgerTab === "donut" && allocationBarModel && (
+                        <div className="space-y-3">
+                          <PortfolioDonutRingSvg
+                            segments={allocationBarModel.segments}
+                            totalCapital={allocationBarModel.totalCapital}
+                            quarantinedCount={allocationBarModel.quarantinedTickers.length}
+                          />
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            <span className="font-mono text-[10px] uppercase text-zinc-400">
+                              {allocationBarModel.isLive
+                                ? "LIVE NEON PORTFOLIO DISTRIBUTION"
+                                : "SNAPSHOT REGIME-CAP PREVIEW"}
+                            </span>
                             <button
                               type="button"
                               onClick={handleOptimize100kPortfolio}
@@ -2536,6 +2573,107 @@ export default function DashboardPage() {
                         </div>
                       )}
                     </SpotlightCard>
+                  </section>
+
+                  {/* ROW 3 — 05 // MULTI-DIMENSIONAL QUANT ANALYTICS — 2x2 GRAPH MATRIX */}
+                  <section aria-label="Multi-Dimensional Quant Analytics Matrix" className="space-y-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#23262D] pb-2 font-mono text-xs font-bold uppercase tracking-[0.16em]">
+                      <span>
+                        <span className="text-[#D2FF00]">05</span>{" "}
+                        <span className="text-zinc-200">
+                          // MULTI-DIMENSIONAL QUANT ANALYTICS — 2×2 GRAPH MATRIX
+                        </span>
+                      </span>
+                      <span className="text-[10px] font-normal text-zinc-500">
+                        CAUSAL REAL TELEMETRY · {activeSec.ticker}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+                      {/* Panel A: 8D State-Space Radar */}
+                      <SpotlightCard className="border-[#23262D] p-5 hover:border-[#D2FF00]/60">
+                        <SectionCodeHeader
+                          code="05"
+                          title="8D STATE-SPACE RADAR FINGERPRINT"
+                          rightSlot={
+                            <InfoTooltip text="8 normalized telemetry axes comparing 1D return, Kalman velocity, SNR, GARCH hazard, 60D Hurst, delivery %, RSI(14), and HMM confidence against a 0.50 neutral octagon." />
+                          }
+                        />
+                        <StateSpaceRadar8dSvg security={activeSec} />
+                      </SpotlightCard>
+
+                      {/* Panel B: PC1 x PC2 Regime Scatter Manifold */}
+                      <SpotlightCard className="border-[#23262D] p-5 hover:border-[#D2FF00]/60">
+                        <SectionCodeHeader
+                          code="06"
+                          title="PC1 × PC2 REGIME SCATTER MANIFOLD"
+                          rightSlot={
+                            <InfoTooltip text="Plots trailing 60 NSE sessions across Momentum/Velocity (X) vs Institutional Delivery (Y) colored by HMM regime, with a 10-session trail and pulsing CURRENT session ring." />
+                          }
+                        />
+                        <RegimeScatterManifoldSvg
+                          series={activeSec.series || []}
+                          currentRegime={activeSec.quant_anchors.hmm.current_regime}
+                        />
+                      </SpotlightCard>
+
+                      {/* Panel C: 10K Monte Carlo Student-t Tail Density & CVaR(95%) */}
+                      <SpotlightCard
+                        accentHex="rgba(255, 59, 92, 0.14)"
+                        className="border-[#23262D] p-5 hover:border-[#FF3B5C]/70"
+                      >
+                        <SectionCodeHeader
+                          code="07"
+                          title="10K MONTE CARLO TAIL DENSITY & CVAR(95%)"
+                          rightSlot={
+                            <InfoTooltip text="Student-t (df=5) return density centered at the 10-day simulated median, shading the worst 5% tail (<= VaR95) in crimson with target-hit vs stop-breach odds." />
+                          }
+                        />
+                        <MonteCarloTailDensitySvg
+                          monteCarlo={activeSec.quant_anchors.monte_carlo}
+                        />
+                      </SpotlightCard>
+
+                      {/* Panel D: Delivery % vs Volume Microstructure / Kalman Noise Oscillator */}
+                      <SpotlightCard className="border-[#23262D] p-5 hover:border-[#D2FF00]/60">
+                        <SectionCodeHeader
+                          code="08"
+                          title={
+                            microTab === "delivery"
+                              ? "DELIVERY % VS VOLUME MICROSTRUCTURE"
+                              : "KALMAN MICROSTRUCTURE NOISE OSCILLATOR"
+                          }
+                          rightSlot={
+                            <div className="flex flex-wrap border border-[#23262D] bg-[#090A0C] p-0.5 font-mono text-[10px]">
+                              {(
+                                [
+                                  { id: "delivery", label: "DELIVERY / VOL" },
+                                  { id: "oscillator", label: "KALMAN NOISE OSCILLATOR" },
+                                ] as const
+                              ).map((t) => (
+                                <button
+                                  key={t.id}
+                                  type="button"
+                                  onClick={() => setMicroTab(t.id)}
+                                  className={`px-2.5 py-1 font-bold uppercase transition ${
+                                    microTab === t.id
+                                      ? "bg-[#D2FF00] text-[#090A0C]"
+                                      : "text-zinc-400 hover:text-white"
+                                  }`}
+                                >
+                                  {t.label}
+                                </button>
+                              ))}
+                            </div>
+                          }
+                        />
+                        {microTab === "delivery" ? (
+                          <DeliveryVolumeMicrostructureSvg series={activeSec.series || []} />
+                        ) : (
+                          <KalmanNoiseOscillatorSvg series={activeSec.series || []} />
+                        )}
+                      </SpotlightCard>
+                    </div>
                   </section>
                 </>
               )}
@@ -2723,6 +2861,36 @@ export default function DashboardPage() {
                           probabilities={activeSec.quant_anchors.hmm.probabilities || {}}
                           currentRegime={activeSec.quant_anchors.hmm.current_regime}
                         />
+                      </div>
+                    </div>
+
+                    <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
+                      <div>
+                        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                          05 // 8D STATE-SPACE RADAR FINGERPRINT
+                        </div>
+                        <StateSpaceRadar8dSvg security={activeSec} />
+                      </div>
+                      <div>
+                        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                          06 // PC1 × PC2 REGIME SCATTER MANIFOLD
+                        </div>
+                        <RegimeScatterManifoldSvg
+                          series={activeSec.series || []}
+                          currentRegime={activeSec.quant_anchors.hmm.current_regime}
+                        />
+                      </div>
+                      <div>
+                        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                          07 // DELIVERY % VS VOLUME MICROSTRUCTURE
+                        </div>
+                        <DeliveryVolumeMicrostructureSvg series={activeSec.series || []} />
+                      </div>
+                      <div>
+                        <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                          08 // KALMAN MICROSTRUCTURE NOISE OSCILLATOR
+                        </div>
+                        <KalmanNoiseOscillatorSvg series={activeSec.series || []} />
                       </div>
                     </div>
                   </SpotlightCard>
@@ -2929,6 +3097,13 @@ export default function DashboardPage() {
                             {seg.pct >= 10 ? `${seg.pct.toFixed(0)}%` : ""}
                           </div>
                         ))}
+                      </div>
+                      <div className="mt-4">
+                        <PortfolioDonutRingSvg
+                          segments={allocationBarModel.segments}
+                          totalCapital={allocationBarModel.totalCapital}
+                          quarantinedCount={allocationBarModel.quarantinedTickers.length}
+                        />
                       </div>
                     </div>
                   )}
